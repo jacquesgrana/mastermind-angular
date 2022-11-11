@@ -1,0 +1,30 @@
+@import "~@angular/material/theming";
+
+@include mat-core();
+
+
+$components-primary-palette: mat-palette($mat-grey, 800);
+$components-accent-palette: mat-palette($mat-orange, 700);
+$components-warn-palette: mat-palette($mat-red, 700);
+
+$components-background-color: mat-color($components-primary-palette, 800);
+
+$components-color-light-color: mat-color($components-primary-palette, 50);
+$components-foreground-color: mat-color($components-primary-palette, 800);
+$components-background-color-bis: mat-color($components-primary-palette, 600);
+$components-background-color-ter: mat-color($components-primary-palette, 700);
+$components-background-color-accent: mat-color($components-accent-palette, 200);
+$components-foreground-warn-color: mat-color($components-warn-palette, 600);
+
+$components-text-family: mat-typography-config($font-family: Roboto);
+
+// Create the theme object (a Sass map containing all of the palettes).
+$components-theme: mat-light-theme($components-primary-palette, $components-accent-palette, $components-warn-palette);
+
+@include angular-material-theme($components-theme);
+@include angular-material-typography($components-text-family);
+
+.background-inherit {
+  background: inherit;
+}
+

@@ -1,0 +1,17 @@
+@import "src/library";
+@import "src/theme";
+
+
+.body-container {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: $components-background-color-ter;
+  }
+
+  #div-container {
+    width: 100vw;
+    flex-grow: 1;
+  }

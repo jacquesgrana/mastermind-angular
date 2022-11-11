@@ -1,0 +1,24 @@
+@import "src/library";
+@import "src/theme";
+
+mat-toolbar {
+margin: 0;
+}
+
+h1 {
+  text-align: center;
+  font-size: 3vh !important;
+  position:absolute;
+}
+
+.body-container {
+  background-color: $components-background-color;
+  min-width: 100%;
+  height: 12vh;
+  color: $components-background-color-accent;
+  padding-bottom: 0.5rem;
+}
+
+.div-title {
+  margin-top: 2rem;
+}
