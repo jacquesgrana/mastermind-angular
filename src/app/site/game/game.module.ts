@@ -2,7 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GameComponent } from './game.component';
 import { MaterialModule } from 'src/app/material-module';
-import {RouterModule} from '@angular/router';
+import { RouterModule } from '@angular/router';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 
 @NgModule({
@@ -12,6 +13,7 @@ import {RouterModule} from '@angular/router';
   imports: [
     CommonModule,
     RouterModule,
+    DragDropModule,
     MaterialModule
   ]
 })

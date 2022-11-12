@@ -4,13 +4,15 @@
 
 
 $components-primary-palette: mat-palette($mat-grey, 800);
-$components-accent-palette: mat-palette($mat-orange, 700);
-$components-warn-palette: mat-palette($mat-red, 700);
+$components-accent-palette: mat-palette($mat-orange, 800);
+$components-warn-palette: mat-palette($mat-red, 800);
 
 $components-background-color: mat-color($components-primary-palette, 800);
 
 $components-color-light-color: mat-color($components-primary-palette, 50);
 $components-foreground-color: mat-color($components-primary-palette, 800);
+$components-foreground-color-accent: mat-color($components-accent-palette, 800);
+$components-foreground-color-warn: mat-color($components-warn-palette, 800);
 $components-background-color-bis: mat-color($components-primary-palette, 600);
 $components-background-color-ter: mat-color($components-primary-palette, 700);
 $components-background-color-accent: mat-color($components-accent-palette, 200);

@@ -17,9 +17,8 @@
   margin-bottom: 2rem;
   padding: 2rem;
   background-color: $components-background-color-bis;
-  border: 4px solid $components-background-color-accent;
+  border: 6px solid black;
   border-radius: 25px;
-
 }
 
 .text-center-perso {
@@ -28,7 +27,70 @@
 }
 
 .button-gen {
-  max-width: 150px;
+  width: 160px;
+  height: 60px;
   margin: auto;
   margin-top: 1rem;
+  border: 6px solid black;
+  border-radius: 12px;
+  color: $components-background-color-accent !important;
+}
+
+.button-play {
+  width: 550px;
+  height: 60px;
+  margin: auto;
+  margin-top: 1rem;
+  border: 6px solid black;
+  border-radius: 12px;
+  color: black !important;
+}
+
+.button-choice {
+  width: 160px;
+  height: 60px;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  margin-top: 1rem;
+  border: 6px solid black;
+  border-radius: 12px;
+  color: $components-background-color-accent !important;
+}
+
+.button-selected {
+  background-color: $components-foreground-color-accent !important;
+  color: whitesmoke !important;
+  border: 6px solid whitesmoke;
+}
+
+.circle {
+  display: inline-block;
+  width: 80px;
+  height: 80px;
+  border: 6px solid black;
+  border-radius: 40px;
+  margin-left: 0.2rem;
+  margin-right: 0.2rem;
+}
+
+#block-combi-to-play {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 380px;
+  height: 120px;
+  border: 6px solid black;
+  border-radius: 12px;
+  background-color: $components-background-color;
+}
+
+#block-colors-to-pick {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 740px;
+  height: 120px;
+  border: 6px solid black;
+  border-radius: 12px;
+  background-color: $components-background-color;
 }
