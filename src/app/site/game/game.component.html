@@ -8,55 +8,50 @@
           class="text-color-white">{{gameService.getGameType()}}</strong></h3>
     </div>
     <div *ngIf="!gameService.isGameLaunched" class="row flex-center">
-      <button mat-raised-button id="button-easy" type="button" class="button-choice" color="primary"
+      <button mat-raised-button id="button-easy" type="button" class="button-selected button-choice" color="primary"
         (click)="setGameType('EASY')">Facile</button>
       <button mat-raised-button id="button-normal" type="button" class="button-choice" color="primary"
         (click)="setGameType('NORMAL')">Normal</button>
       <button mat-raised-button id="button-hard" type="button" class="button-choice" color="primary"
         (click)="setGameType('HARD')">Difficile</button>
     </div>
+    <div *ngIf="!gameService.isGameLaunched" class="mt-2 row">
+      <!-- *ngIf="!gameService.isGameLaunched" -->
+      <button mat-raised-button (click)="launchGame()" type="button" class="button-play" color="accent">
+        <mat-icon>play_arrow</mat-icon>JOUER
+      </button>
+    </div>
+
     <ng-container *ngIf="gameService.isGameLaunched">
       <div class="mt-4 row flex-center">
         <h4 class="text-center-perso">Tour n° {{gameService.turnNumber}}</h4>
       </div>
 
       <div class="mt-4 row flex-center" cdkDropListGroup>
-
         <div id="block-combi-to-play" class="flex-center"
         cdkDropList
-
           [cdkDropListData]="gameService.combiToPlayList"
-
           (cdkDropListDropped)="drop($event)">
-
           <span *ngFor="let item of gameService.combiToPlayList" cdkDrag
             class="circle mat-elevation-z2 {{item.classColorBg}}"></span>
         </div>
         <div id="block-colors-to-pick" class="flex-center mt-4"
         cdkDropList
-
           [cdkDropListData]="gameService.colorList"
-          
           (cdkDropListDropped)="drop($event)">
           <span *ngFor="let item of gameService.colorList" cdkDrag
             class="circle mat-elevation-z2 {{item.classColorBg}}"></span>
-
         </div>
       </div>
 
       <div class="mt-2 row">
-        <button mat-raised-button type="button" class="button-gen" color="primary">
+        <button mat-raised-button (click)="this.nextTurn()" disabled="{{!gameService.isCombiPlayable}}" type="button" class="button-gen" color="primary">
           <mat-icon>navigate_next</mat-icon>Tour Suivant
         </button>
       </div>
     </ng-container>
 
-    <div class="mt-2 row">
-      <!-- *ngIf="!gameService.isGameLaunched" -->
-      <button mat-raised-button (click)="launchGame()" type="button" class="button-play" color="accent">
-        <mat-icon>play_arrow</mat-icon>JOUER
-      </button>
-    </div>
+
 
 
     <div class="mt-2 row">

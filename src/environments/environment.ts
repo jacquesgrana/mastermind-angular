@@ -3,7 +3,10 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  MAX_TURN_NUMBER: 12,
+  COLOR_NUMBER: 8,
+  COMBI_COLOR_NUMBER: 4
 };
 
 /*
