@@ -5,6 +5,7 @@ import { Combi } from '../model/combi';
 import { ColorEnum } from '../model/enums/color-enum';
 import { GameTypeEnum } from '../model/enums/game-type-enum';
 import { Match } from '../model/match';
+import { Result } from '../model/result';
 import { Turn } from '../model/turn';
 /*
 const MAX_TURN_NUMBER: number = 12;
@@ -20,11 +21,12 @@ export class GameService {
   public isGameLaunched: boolean = false;
 
   public turnNumber: number = 1;
-  public match!: Match;
-  public turn!: Turn;
-  public combi!: Combi;
+  public match: Match = { isPlayerWin: false, difficulty: GameTypeEnum.EASY, turns: [] };
+  public turn: Turn = { turnNumber: 1, combi: { colors: [] }, result: { nbWhite: 0, nbBlack: 0 } };
+  public result: Result = { nbWhite: 0, nbBlack: 0 };
+  public combi: Combi = { colors: [] };
 
-  public combiToFind!: Combi;
+  public combiToFind: Combi = { colors: [] };
 
   public isGameWin: boolean = false;
   public isGameLost: boolean = false;
@@ -115,16 +117,16 @@ export class GameService {
 
   getGameType(): string {
     let toReturn: string = '';
-    switch(this.gameType) {
-      case GameTypeEnum.EASY :
-      toReturn = 'Facile';
-      break;
-      case GameTypeEnum.NORMAL :
-      toReturn = 'Normal';
-      break;
-      case GameTypeEnum.HARD :
-      toReturn = 'Difficile';
-      break;
+    switch (this.gameType) {
+      case GameTypeEnum.EASY:
+        toReturn = 'Facile';
+        break;
+      case GameTypeEnum.NORMAL:
+        toReturn = 'Normal';
+        break;
+      case GameTypeEnum.HARD:
+        toReturn = 'Difficile';
+        break;
     }
     return toReturn;
   }
@@ -142,20 +144,62 @@ export class GameService {
   }
 
   generateCombiToFind(): void {
-    for (let i = 0; i< environment.COMBI_COLOR_NUMBER; i++) {
+    for (let i = 0; i < environment.COMBI_COLOR_NUMBER; i++) {
       let colorToAdd: Color;
       let randomNumber: number;
       do {
-        randomNumber = Math.floor(Math.random() * (environment.COLOR_NUMBER + 1));
-        console.log('random number :', randomNumber);
+        randomNumber = Math.floor(Math.random() * (environment.COLOR_NUMBER));
+        //console.log('random number :', randomNumber);
         colorToAdd = this.getColorById(randomNumber);
       }
-      while(this.combiToFind.colors.includes(colorToAdd));
-
-
+      while (this.combiToFind.colors.includes(colorToAdd));
       this.combiToFind.colors[i] = colorToAdd;
     }
     console.log('combi to find :', this.combiToFind);
+  }
 
+  getResult(combiToFind: Combi, combiToTest: Combi): Result {
+    let nbWhite = this.getWhiteNumber(combiToFind, combiToTest);
+    let nbBlack = this.getBlackNumber(combiToFind, combiToTest);
+    console.log('result : nbwhite : ' + nbWhite + ' : nbBlack : ' + nbBlack);
+    return { nbWhite: nbWhite, nbBlack: nbBlack };
+  }
+
+  getWhiteNumber(combiToFind: Combi, combiToTest: Combi): number {
+    let toReturn: number = 0;
+    let i: number = 0;
+    let j: number = 0;
+    combiToTest.colors.forEach(ctt => {
+      j = 0;
+      combiToFind.colors.forEach(
+        ctf => {
+          if (JSON.stringify(ctf) === JSON.stringify(ctt) && j !== i) {
+            toReturn++;
+          }
+          j++
+        }
+      );
+      i++;
+    });
+    return toReturn;
+  }
+
+  getBlackNumber(combiToFind: Combi, combiToTest: Combi): number {
+    let toReturn: number = 0;
+    let i: number = 0;
+    let j: number = 0;
+    combiToTest.colors.forEach(ctt => {
+      j = 0;
+      combiToFind.colors.forEach(
+        ctf => {
+          if (JSON.stringify(ctf) === JSON.stringify(ctt) && j === i) {
+            toReturn++;
+          }
+          j++
+        }
+      );
+      i++;
+    });
+    return toReturn;
   }
 }

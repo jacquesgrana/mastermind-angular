@@ -1,12 +1,10 @@
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Component, OnInit } from '@angular/core';
 import { Color } from 'src/app/model/color';
-import { Combi } from 'src/app/model/combi';
 import { GameTypeEnum } from 'src/app/model/enums/game-type-enum';
-import { Match } from 'src/app/model/match';
-import { Turn } from 'src/app/model/turn';
 import { GameService } from 'src/app/services/game.service';
 import { environment } from 'src/environments/environment';
+
 
 @Component({
   selector: 'app-game',
@@ -14,9 +12,6 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./game.component.scss']
 })
 export class GameComponent implements OnInit {
-
-
-
 
   constructor(
     public gameService: GameService
@@ -31,25 +26,59 @@ export class GameComponent implements OnInit {
     this.gameService.isGameLaunched = true; // TODO enlever qd ok
     this.gameService.combiToFind = {colors: []};
     this.gameService.generateCombiToFind();
+
+    // affecter match
+    this.gameService.match.difficulty = this.gameService.gameType;
+    this.gameService.match.isPlayerWin = false;
   }
 
   nextTurn(): void {
+    // si tour > 1 : affichage de la ligne précédente --> ngFor sur match.turns
 
-    this.gameService.combi.colors = this.gameService.combiToPlayList;
-    this.gameService.turn.combi = this.gameService.combi;
+    //this.gameService.combi.colors = [...this.gameService.combiToPlayList];
+    this.gameService.combi.colors = this.clone(this.gameService.combiToPlayList);
+
+    //this.gameService.turn.combi.colors = [...this.gameService.combi.colors];
+    this.gameService.turn.combi.colors = this.clone(this.gameService.combi.colors);
+
+    //this.gameService.turn.combi = {...this.gameService.combi};
+    this.gameService.turn.combi = this.clone(this.gameService.combi);
+
     this.gameService.turn.turnNumber = this.gameService.turnNumber;
 
-    this.gameService.turnNumber++;
-    if (this.gameService.turnNumber > environment.MAX_TURN_NUMBER) {
+    this.gameService.result = this.gameService.getResult(this.gameService.combiToFind, this.gameService.turn.combi);
+
+    //this.gameService.turn.result = {...this.gameService.result};
+    this.gameService.turn.result = this.clone(this.gameService.result);
+
+    //this.gameService.match.turns.push({...this.gameService.turn});
+    this.gameService.match.turns.push(this.clone(this.gameService.turn));
+
+    if(this.gameService.turn.result.nbBlack === environment.COMBI_COLOR_NUMBER) {
+      this.gameService.isGameWin = true;
+    }
+
+    if (this.gameService.turnNumber >= environment.MAX_TURN_NUMBER) {
       this.gameService.isGameLost = true;
     }
 
     if (this.gameService.isGameWin) {
       alert('Partie gagnée !');
+      this.gameService.isGameLost = false;
+      this.gameService.match.isPlayerWin = true;
+
+      // TODO ouvrir rapport de fin de partie
     }
     if (this.gameService.isGameLost) {
       alert('Partie perdue !');
+      this.gameService.match.isPlayerWin = false;
+      // TODO ouvrir rapport de fin de partie
     }
+    this.gameService.turnNumber++; // TODO attention !!!
+  }
+
+  clone(toClone: any): any {
+    return JSON.parse(JSON.stringify(toClone));
   }
 
   setGameType(type: string): void {
