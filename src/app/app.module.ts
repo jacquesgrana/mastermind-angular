@@ -15,6 +15,7 @@ import { FooterModule } from './site/footer/footer.module';
 import { MaterialModule } from './material-module';
 import { StartModule } from './site/start/start.module';
 import { GameModule } from './site/game/game.module';
+import { EndModule } from './site/end/end.module';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { GameModule } from './site/game/game.module';
     FooterModule,
     StartModule,
     GameModule,
+    EndModule,
     MaterialModule,
   ],
   providers: [],

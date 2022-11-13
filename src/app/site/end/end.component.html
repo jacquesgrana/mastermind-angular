@@ -1,0 +1,40 @@
+<div class="body-container">
+  <section class="block-container container mat-elevation-z4">
+    <div class="mt-2 row">
+      <h2 class="mt-2 text-center-perso">Jeu</h2>
+    </div>
+    <div class="mt-2 row">
+      <h3 class="mt-1 text-center-perso">Difficulté : <strong
+          class="text-color-white">{{gameService.getGameType()}}</strong></h3>
+    </div>
+    <div class="mt-2 row">
+      <h3 *ngIf="gameService.match.isPlayerWin"
+        class="mat-elevation-z2 text-center-perso text-in-block text-color-green">Partie gagnée en
+        {{gameService.turnNumber - 1}} tour(s)</h3>
+      <h3 *ngIf="!gameService.match.isPlayerWin"
+        class="mat-elevation-z2 text-center-perso text-in-block text-color-red">Partie perdue</h3>
+    </div>
+
+    <div class="mt-2 row">
+      <h4 class="mt-5 text-center-perso">Déroulement de la partie :</h4>
+      <div *ngFor="let turn of gameService.match.turns" class="block-turn">
+        <span class="turn-number"><strong>{{turn.turnNumber}}</strong></span>
+        <span class="me-2">
+          <span *ngFor="let color of turn.combi.colors"
+            class="circle-little mat-elevation-z2 {{color.classColorBg}}"></span>
+        </span>
+        <span *ngFor="let f of [].constructor(turn.result.nbBlack); let r = index"
+          class="circle-very-little mat-elevation-z2 color-black"></span>
+        <span *ngFor="let f of [].constructor(turn.result.nbWhite); let r = index"
+          class="circle-very-little mat-elevation-z2 color-white"></span>
+      </div>
+    </div>
+
+    <div class="mt-2 row">
+      <button mat-raised-button type="button" [routerLink]="['/game']" (click)="clearMatchValues()" class="button-gen"
+        color="accent">
+        <mat-icon>replay</mat-icon> Rejouer
+      </button>
+    </div>
+  </section>
+</div>

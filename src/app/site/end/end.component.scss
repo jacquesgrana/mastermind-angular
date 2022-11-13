@@ -22,8 +22,6 @@ h4 {
   font-size: 1.5rem;
 }
 
-
-
 .block-container {
   max-width: 800px;
   margin: auto;
@@ -40,6 +38,17 @@ h4 {
   justify-content: center;
 }
 
+.text-in-block {
+  padding: 0.5rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  border: 6px solid black;
+  width: fit-content;
+  margin: auto;
+  border-radius: 12px;
+  background-color: $components-background-color-accent;
+}
+
 .button-gen {
   width: 160px;
   height: 60px;
@@ -48,33 +57,6 @@ h4 {
   border: 6px solid black;
   border-radius: 12px;
   color: $components-background-color-accent !important;
-}
-
-.button-play {
-  width: 550px;
-  height: 60px;
-  margin: auto;
-  margin-top: 1rem;
-  border: 6px solid black;
-  border-radius: 12px;
-  color: black !important;
-}
-
-.button-choice {
-  width: 160px;
-  height: 60px;
-  margin-left: 1rem;
-  margin-right: 1rem;
-  margin-top: 1rem;
-  border: 6px solid black;
-  border-radius: 12px;
-  color: $components-background-color-accent !important;
-}
-
-.button-selected {
-  background-color: $components-foreground-color-accent !important;
-  color: whitesmoke !important;
-  border: 6px solid whitesmoke;
 }
 
 .circle {
@@ -104,24 +86,6 @@ h4 {
   margin: 0.25rem;
 }
 
-.cdk-drop-list-dragging {
-  border: 6px solid whitesmoke !important;
-}
-
-.cdk-drop-list-receiving {
-  border: 6px solid $components-background-color-accent !important;
-}
-
-/* Animate items as they're being sorted. */
-.cdk-drop-list-dragging .cdk-drag {
-  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
-}
-
-/* Animate an item that has been dropped. */
-.cdk-drag-animating {
-  transition: transform 300ms cubic-bezier(0, 0, 0.2, 1);
-}
-
 .turn-number {
   display: inline-flex;
   align-items: center;
@@ -149,34 +113,3 @@ h4 {
   background-color: $components-background-color;
   color: black !important;
 }
-
-#block-combi-to-play {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: auto;
-  width: 370px;
-  height: 110px;
-  border: 6px solid black;
-  border-radius: 12px;
-  background-color: $components-background-color;
-}
-
-#block-colors-to-pick {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: auto;
-  padding-top: 0.25rem;
-  padding-bottom: 0.25rem;
-  padding-left: 0.25rem;
-  padding-right: 0.25rem;
-  //max-width: 740px;
-  min-height: 110px;
-  height: auto;
-  width: fit-content;
-  border: 6px solid black;
-  border-radius: 12px;
-  background-color: $components-background-color;
-}
-

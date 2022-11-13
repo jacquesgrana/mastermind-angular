@@ -27,15 +27,15 @@ export class GameService {
   public combi: Combi = { colors: [] };
 
   public combiToFind: Combi = { colors: [] };
+  public combiToPlayList: Color[] = [];
 
   public isGameWin: boolean = false;
   public isGameLost: boolean = false;
 
   public isCombiPlayable: boolean = false;
 
-  public combiToPlayList: Color[] = [];
 
-  public colorList: Color[] = [
+  public colorListAll: Color[] = [
     {
       colorId: 0,
       colorType: ColorEnum.RED,
@@ -111,7 +111,7 @@ export class GameService {
     }
   ];
 
-  public colorListAll: Color[] = this.colorList;
+  public colorList: Color[] = this.clone(this.colorListAll);
 
   constructor() { }
 
@@ -129,6 +129,10 @@ export class GameService {
         break;
     }
     return toReturn;
+  }
+
+  clone(toClone: any): any {
+    return JSON.parse(JSON.stringify(toClone));
   }
 
   getColorByName(colorName: string): Color {
@@ -201,5 +205,26 @@ export class GameService {
       i++;
     });
     return toReturn;
+  }
+
+  clearMatchValues(): void {
+     this.gameType = GameTypeEnum.EASY;
+     this.isGameLaunched = false;
+
+    this.turnNumber = 1;
+    this.match = { isPlayerWin: false, difficulty: GameTypeEnum.EASY, turns: [] };
+    this.turn = { turnNumber: 1, combi: { colors: [] }, result: { nbWhite: 0, nbBlack: 0 } };
+    this.result = { nbWhite: 0, nbBlack: 0 };
+    this.combi = { colors: [] };
+
+    this.combiToFind = { colors: [] };
+    this.combiToPlayList = [];
+
+    this.isGameWin = false;
+    this.isGameLost = false;
+
+    this.colorList = this.colorListAll;
+
+    this.isCombiPlayable = false;
   }
 }

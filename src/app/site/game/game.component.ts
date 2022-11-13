@@ -1,5 +1,6 @@
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Color } from 'src/app/model/color';
 import { GameTypeEnum } from 'src/app/model/enums/game-type-enum';
 import { GameService } from 'src/app/services/game.service';
@@ -14,7 +15,8 @@ import { environment } from 'src/environments/environment';
 export class GameComponent implements OnInit {
 
   constructor(
-    public gameService: GameService
+    public gameService: GameService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -35,24 +37,13 @@ export class GameComponent implements OnInit {
   nextTurn(): void {
     // si tour > 1 : affichage de la ligne précédente --> ngFor sur match.turns
 
-    //this.gameService.combi.colors = [...this.gameService.combiToPlayList];
-    this.gameService.combi.colors = this.clone(this.gameService.combiToPlayList);
-
-    //this.gameService.turn.combi.colors = [...this.gameService.combi.colors];
-    this.gameService.turn.combi.colors = this.clone(this.gameService.combi.colors);
-
-    //this.gameService.turn.combi = {...this.gameService.combi};
-    this.gameService.turn.combi = this.clone(this.gameService.combi);
-
+    this.gameService.combi.colors = this.gameService.clone(this.gameService.combiToPlayList);
+    this.gameService.turn.combi.colors = this.gameService.clone(this.gameService.combi.colors);
+    this.gameService.turn.combi = this.gameService.clone(this.gameService.combi);
     this.gameService.turn.turnNumber = this.gameService.turnNumber;
-
     this.gameService.result = this.gameService.getResult(this.gameService.combiToFind, this.gameService.turn.combi);
-
-    //this.gameService.turn.result = {...this.gameService.result};
-    this.gameService.turn.result = this.clone(this.gameService.result);
-
-    //this.gameService.match.turns.push({...this.gameService.turn});
-    this.gameService.match.turns.push(this.clone(this.gameService.turn));
+    this.gameService.turn.result = this.gameService.clone(this.gameService.result);
+    this.gameService.match.turns.push(this.gameService.clone(this.gameService.turn));
 
     if(this.gameService.turn.result.nbBlack === environment.COMBI_COLOR_NUMBER) {
       this.gameService.isGameWin = true;
@@ -66,32 +57,23 @@ export class GameComponent implements OnInit {
       alert('Partie gagnée !');
       this.gameService.isGameLost = false;
       this.gameService.match.isPlayerWin = true;
-
-      // TODO ouvrir rapport de fin de partie
     }
     if (this.gameService.isGameLost) {
       alert('Partie perdue !');
       this.gameService.match.isPlayerWin = false;
-      // TODO ouvrir rapport de fin de partie
     }
+
+    if(this.gameService.isGameWin || this.gameService.isGameLost) {
+      this.router.navigate(['end']);
+    }
+
     this.gameService.turnNumber++; // TODO attention !!!
   }
 
-  clone(toClone: any): any {
-    return JSON.parse(JSON.stringify(toClone));
-  }
-
   setGameType(type: string): void {
-    //console.log('appel setGameType :', type);
-
     const buttonEasy = document.getElementById('button-easy');
     const buttonNormal = document.getElementById('button-normal');
     const buttonHard = document.getElementById('button-hard');
-
-    //console.log('easy button :', buttonEasy);
-    //console.log('normal button :', buttonNormal);
-    //console.log('hard button :', buttonHard);
-
     switch (type) {
       case 'EASY':
         this.gameService.gameType = GameTypeEnum.EASY;
