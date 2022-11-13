@@ -1,14 +1,25 @@
 <h1 class="text-center title" mat-dialog-title>Statistiques</h1>
-<div mat-dialog-content class="flex-container flex">
+<div mat-dialog-content class="container">
 
-<div class="row">
-  <h3>Nombre de combinaisons possibles pour ce tour : {{statsService.matchingCombiNb}}</h3>
+  <div class="row">
+    <h3 class="text-center">Nombre de combinaisons possibles pour ce tour : {{statsService.matchingCombiNb}}</h3>
+  </div>
+  <div class="row">
+    <h3 class="text-center">Nombre de combinaisons possibles cumulées : {{statsService.matchingCombiCumulNb}}</h3>
+  </div>
+  <div *ngIf="statsService.matchingCombiCumulNb <= limitMatchingCombis" class="row container mt-2 text-center flex-center">
+    <h4 class="mb-2 text-center row">Combinaison(s) possible(s) : </h4>
+  </div>
+  <div *ngIf="statsService.matchingCombiCumulNb <= limitMatchingCombis" class="row container mt-2 flex-center">
+    <ul class="row container">
+      <li *ngFor="let combi of statsService.matchingCombiCumulList" class="row flex-center">
+        <span *ngFor="let color of combi.colors"
+          class="circle-very-little mat-elevation-z2 {{color.classColorBg}}"></span>
+      </li>
+    </ul>
+  </div>
 </div>
-<div class="row">
-  <h3>Nombre de combinaisons possibles cumulées : {{statsService.matchingCombiCumulNb}}</h3>
-</div>
-</div>
-<div mat-dialog-actions class="flex-center mt-1">
+<div mat-dialog-actions class="flex-center mt-1 row">
   <button mat-flat-button color="accent" class="mb-2 button-gen" (click)="onNoClick()">
     <mat-icon>close</mat-icon>Fermer
   </button>

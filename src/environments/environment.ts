@@ -6,7 +6,8 @@ export const environment = {
   production: false,
   MAX_TURN_NUMBER: 12,
   COLOR_NUMBER: 8,
-  COMBI_COLOR_NUMBER: 4
+  COMBI_COLOR_NUMBER: 4,
+  LIMIT_MATCHING_COMBIS: 8
 };
 
 /*

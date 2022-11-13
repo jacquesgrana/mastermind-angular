@@ -63,12 +63,12 @@ export class GameComponent implements OnInit {
     }
 
     if (this.gameService.isGameWin) {
-      alert('Partie gagnée !');
+      //alert('Partie gagnée !');
       this.gameService.isGameLost = false;
       this.gameService.match.isPlayerWin = true;
     }
     if (this.gameService.isGameLost) {
-      alert('Partie perdue !');
+      //alert('Partie perdue !');
       this.gameService.match.isPlayerWin = false;
     }
 
