@@ -1,5 +1,6 @@
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Color } from 'src/app/model/color';
 import { Combi } from 'src/app/model/combi';
@@ -8,6 +9,7 @@ import { CombisService } from 'src/app/services/combis.service';
 import { GameService } from 'src/app/services/game.service';
 import { StatisticsService } from 'src/app/services/statistics.service';
 import { environment } from 'src/environments/environment';
+import { StatisticsComponent } from './statistics/statistics.component';
 
 
 @Component({
@@ -21,6 +23,7 @@ export class GameComponent implements OnInit {
     public gameService: GameService,
     private statsService: StatisticsService,
     private combisService: CombisService,
+    public dialogStats: MatDialog,
     private router: Router
   ) { }
 
@@ -142,5 +145,9 @@ export class GameComponent implements OnInit {
 
   openStats() {
     console.log('ouverture des stats');
+    const dialogRefUser = this.dialogStats.open(StatisticsComponent, {
+      disableClose: true,
+      panelClass: ['dialog']
+    });
   }
 }

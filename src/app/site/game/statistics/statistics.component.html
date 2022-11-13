@@ -1,0 +1,15 @@
+<h1 class="text-center title" mat-dialog-title>Statistiques</h1>
+<div mat-dialog-content class="flex-container flex">
+
+<div class="row">
+  <h3>Nombre de combinaisons possibles pour ce tour : {{statsService.matchingCombiNb}}</h3>
+</div>
+<div class="row">
+  <h3>Nombre de combinaisons possibles cumulées : {{statsService.matchingCombiCumulNb}}</h3>
+</div>
+</div>
+<div mat-dialog-actions class="flex-center mt-1">
+  <button mat-flat-button color="accent" class="mb-2 button-gen" (click)="onNoClick()">
+    <mat-icon>close</mat-icon>Fermer
+  </button>
+</div>

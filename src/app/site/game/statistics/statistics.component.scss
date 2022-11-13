@@ -1,0 +1,35 @@
+@import "src/library";
+@import "src/theme";
+
+::ng-deep .dialog, .dialog {
+  display: flex !important;
+  justify-content:flex-start !important;
+  flex-direction: column !important;
+}
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+  background-color: $components-background-color-accent !important;
+  color: $components-foreground-color !important;
+  border-radius: 10px !important;
+}
+
+.button-gen {
+  width: 160px;
+  height: 60px;
+  //margin: auto;
+  margin: 1rem;
+  border: 6px solid black;
+  border-radius: 12px;
+  color: $components-background-color-accent !important;
+}
+
+.flex {
+  display: flex;
+  justify-content:flex-start;
+  flex-direction: column;
+}
+
+.title {
+  font-size: 2rem;
+  color: $components-background-color-accent !important;
+}

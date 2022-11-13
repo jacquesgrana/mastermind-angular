@@ -4,11 +4,13 @@ import { GameComponent } from './game.component';
 import { MaterialModule } from 'src/app/material-module';
 import { RouterModule } from '@angular/router';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { StatisticsComponent } from './statistics/statistics.component';
 
 
 @NgModule({
   declarations: [
-    GameComponent
+    GameComponent,
+    StatisticsComponent
   ],
   imports: [
     CommonModule,

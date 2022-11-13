@@ -1,4 +1,29 @@
+@import '~bootstrap/dist/css/bootstrap.min.css';
+@import "library";
+@import "theme";
+
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html, body, app-root {
+  height: 100%;
+ }
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: $components-background-color-ter;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+mat-dialog-container {
+  background-color: $components-background-color-bis !important;
+  color: $components-foreground-color !important;
+  margin: auto !important;
+  width: 800px !important;
+  min-height: 200px !important;
+  max-width: 80% !important;
+  outline: 6px solid black !important;
+  border-radius: 20px !important;
+}
+
+

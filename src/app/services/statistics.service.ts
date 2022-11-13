@@ -12,8 +12,11 @@ export class StatisticsService {
 
   allCombiList: Combi[] = [];
   combiPlayedList: Combi[] = [];
-  matchedCombiList: Combi[] = [];
-  matchedCombiCumulList: Combi[] = [];
+  matchingCombiList: Combi[] = [];
+  matchingCombiCumulList: Combi[] = [];
+
+  matchingCombiNb: number = 0;
+  matchingCombiCumulNb: number = 0;
 
 
   constructor(
@@ -51,7 +54,38 @@ export class StatisticsService {
     console.log('service stats : update des stats');
     this.combiPlayedList.push(combiToAdd);
     // calculer les combi qui matchent avec le resultat
+    this.calculateMatchingCombis(combiToAdd, this.allCombiList, result);
+    console.log('nombre de combis qui matchent :', this.matchingCombiList.length);
+    this.matchingCombiNb = this.matchingCombiList.length;
     // calculer les combis qui matchent cumulées
+    if(turnNumber > 1) {
+      this.calculateMatchingCombisCumul(combiToAdd, this.matchingCombiCumulList, result);
+    }
+    else {
+      this.matchingCombiCumulList = this.matchingCombiList;
+    }
+
+    console.log('nombre de combis cumulées qui matchent :', this.matchingCombiCumulList.length);
+    this.matchingCombiCumulNb = this.matchingCombiCumulList.length;
   }
 
+  calculateMatchingCombis(combiToAdd: Combi, combiList: Combi[], result: Result): void {
+    this.matchingCombiList = [];
+    combiList.forEach(c => {
+      if(JSON.stringify(this.combisService.getResult(c, combiToAdd)) === JSON.stringify(result)) {
+        this.matchingCombiList.push(c);
+      }
+    });
+
+  }
+
+  calculateMatchingCombisCumul(combiToAdd: Combi, combiList: Combi[], result: Result): void {
+    let combiCumulList : Combi[] = [];
+    combiList.forEach(c => {
+      if(JSON.stringify(this.combisService.getResult(c, combiToAdd)) === JSON.stringify(result)) {
+        combiCumulList.push(c);
+      }
+    });
+    this.matchingCombiCumulList = combiCumulList;
+  }
 }
