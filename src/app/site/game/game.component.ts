@@ -2,8 +2,11 @@ import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/dr
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Color } from 'src/app/model/color';
+import { Combi } from 'src/app/model/combi';
 import { GameTypeEnum } from 'src/app/model/enums/game-type-enum';
+import { CombisService } from 'src/app/services/combis.service';
 import { GameService } from 'src/app/services/game.service';
+import { StatisticsService } from 'src/app/services/statistics.service';
 import { environment } from 'src/environments/environment';
 
 
@@ -16,17 +19,20 @@ export class GameComponent implements OnInit {
 
   constructor(
     public gameService: GameService,
+    private statsService: StatisticsService,
+    private combisService: CombisService,
     private router: Router
   ) { }
 
   ngOnInit(): void {
     //this.setGameType('EASY');
+    this.statsService.generateAllCombiList();
   }
 
   launchGame(): void {
     //this.gameService.isGameLaunched = true;
     this.gameService.isGameLaunched = true; // TODO enlever qd ok
-    this.gameService.combiToFind = {colors: []};
+    this.gameService.combiToFind = { colors: [] };
     this.gameService.generateCombiToFind();
 
     // affecter match
@@ -41,11 +47,11 @@ export class GameComponent implements OnInit {
     this.gameService.turn.combi.colors = this.gameService.clone(this.gameService.combi.colors);
     this.gameService.turn.combi = this.gameService.clone(this.gameService.combi);
     this.gameService.turn.turnNumber = this.gameService.turnNumber;
-    this.gameService.result = this.gameService.getResult(this.gameService.combiToFind, this.gameService.turn.combi);
+    this.gameService.result = this.combisService.getResult(this.gameService.combiToFind, this.gameService.turn.combi);
     this.gameService.turn.result = this.gameService.clone(this.gameService.result);
     this.gameService.match.turns.push(this.gameService.clone(this.gameService.turn));
 
-    if(this.gameService.turn.result.nbBlack === environment.COMBI_COLOR_NUMBER) {
+    if (this.gameService.turn.result.nbBlack === environment.COMBI_COLOR_NUMBER) {
       this.gameService.isGameWin = true;
     }
 
@@ -63,10 +69,14 @@ export class GameComponent implements OnInit {
       this.gameService.match.isPlayerWin = false;
     }
 
-    if(this.gameService.isGameWin || this.gameService.isGameLost) {
+    if (this.gameService.isGameWin || this.gameService.isGameLost) {
       this.router.navigate(['end']);
     }
-
+    this.gameService.updateIsCombiPlayable();
+    let combi = new Combi(this.gameService.clone(this.gameService.combiToPlayList));
+    this.statsService.updateStatistics(combi,
+      this.gameService.clone(this.gameService.result),
+      this.gameService.turnNumber);
     this.gameService.turnNumber++; // TODO attention !!!
   }
 
@@ -118,7 +128,7 @@ export class GameComponent implements OnInit {
         this.transferDataArray(event);
       }
     }
-    this.gameService.isCombiPlayable = this.gameService.combiToPlayList.length == environment.COMBI_COLOR_NUMBER;
+    this.gameService.updateIsCombiPlayable(); //this.gameService.combiToPlayList.length == environment.COMBI_COLOR_NUMBER
   }
 
   transferDataArray(event: CdkDragDrop<Color[]>): void {
@@ -128,5 +138,9 @@ export class GameComponent implements OnInit {
       event.previousIndex,
       event.currentIndex,
     );
+  }
+
+  openStats() {
+    console.log('ouverture des stats');
   }
 }
