@@ -62,7 +62,7 @@
       </div>
     </ng-container>
     <div class="mt-2 row">
-      <button mat-raised-button type="button" [routerLink]="['/start']" class="button-gen" color="accent">
+      <button mat-raised-button type="button" [routerLink]="['/start']" (click)="gameService.clearMatchValues()" class="button-gen" color="accent">
         <mat-icon>rule</mat-icon> Retour
       </button>
     </div>
