@@ -1,5 +1,5 @@
 <h1 class="text-center title" mat-dialog-title>Statistiques</h1>
-<div mat-dialog-content class="container">
+<div mat-dialog-content class="container block-container">
 
   <div class="row">
     <h3 class="text-center">Nombre de combinaisons possibles pour ce tour : {{statsService.matchingCombiNb}}</h3>
@@ -7,20 +7,24 @@
   <div class="row">
     <h3 class="text-center">Nombre de combinaisons possibles cumulées : {{statsService.matchingCombiCumulNb}}</h3>
   </div>
-  <div *ngIf="statsService.matchingCombiCumulNb <= limitMatchingCombis" class="row container mt-2 text-center flex-center">
-    <h4 class="mb-2 text-center row">Combinaison(s) possible(s) : </h4>
-  </div>
-  <div *ngIf="statsService.matchingCombiCumulNb <= limitMatchingCombis" class="row container mt-2 flex-center">
-    <ul class="row container">
-      <li *ngFor="let combi of statsService.matchingCombiCumulList" class="row flex-center">
-        <span *ngFor="let color of combi.colors"
-          class="circle-very-little mat-elevation-z2 {{color.classColorBg}}"></span>
+
+  <div *ngIf="statsService.matchingCombiCumulNb <= limitMatchingCombis" class="row mt-2 block-matching-combis flex-center flex-wrap">
+    <button mat-flat-button color="accent" class="button-gen" (click)="isMatchingCombiShow = !isMatchingCombiShow">
+      <mat-icon>{{isMatchingCombiShow ? 'visibility_off' : 'visibility'}}</mat-icon> {{isMatchingCombiShow ? 'Masquer' : 'Montrer'}}
+    </button>
+    <div *ngIf="isMatchingCombiShow" class="mt-2">
+      <h4 class="mb-2 text-center">Combinaison(s) possible(s) : </h4>
+    </div>
+
+    <ul *ngIf="isMatchingCombiShow" class="flex-space-between flex-wrap">
+      <li *ngFor="let combi of statsService.matchingCombiCumulList" class="me-1 ms-1">
+        <span *ngFor="let color of combi.colors" class="circle-very-little mat-elevation-z2 {{color.classColorBg}}"></span>
       </li>
     </ul>
   </div>
 </div>
-<div mat-dialog-actions class="flex-center mt-1 row">
+<div mat-dialog-actions class="flex-center row">
   <button mat-flat-button color="accent" class="mb-2 button-gen" (click)="onNoClick()">
-    <mat-icon>close</mat-icon>Fermer
+    <mat-icon>close</mat-icon> Fermer
   </button>
 </div>

@@ -11,6 +11,7 @@ import { environment } from 'src/environments/environment';
 export class StatisticsComponent implements OnInit {
 
   limitMatchingCombis = environment.LIMIT_MATCHING_COMBIS;
+  isMatchingCombiShow: boolean = false;
 
   constructor(
     public statsService: StatisticsService,

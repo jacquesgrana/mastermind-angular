@@ -2,6 +2,7 @@ import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/dr
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { Library } from 'src/app/libraries/library';
 import { Color } from 'src/app/model/color';
 import { Combi } from 'src/app/model/combi';
 import { GameTypeEnum } from 'src/app/model/enums/game-type-enum';
@@ -30,10 +31,13 @@ export class GameComponent implements OnInit {
   ngOnInit(): void {
     //this.setGameType('EASY');
     this.statsService.generateAllCombiList();
+    //console.log('nb max combis : ', environment.MAX_COMBI_NUMBER);
+
   }
 
   launchGame(): void {
     //this.gameService.isGameLaunched = true;
+    this.gameService.clearMatchValues();
     this.gameService.isGameLaunched = true; // TODO enlever qd ok
     this.gameService.combiToFind = { colors: [] };
     this.gameService.generateCombiToFind();
@@ -46,13 +50,13 @@ export class GameComponent implements OnInit {
   nextTurn(): void {
     // si tour > 1 : affichage de la ligne précédente --> ngFor sur match.turns
 
-    this.gameService.combi.colors = this.gameService.clone(this.gameService.combiToPlayList);
-    this.gameService.turn.combi.colors = this.gameService.clone(this.gameService.combi.colors);
-    this.gameService.turn.combi = this.gameService.clone(this.gameService.combi);
+    this.gameService.combi.colors = Library.clone(this.gameService.combiToPlayList);
+    this.gameService.turn.combi.colors = Library.clone(this.gameService.combi.colors);
+    this.gameService.turn.combi = Library.clone(this.gameService.combi);
     this.gameService.turn.turnNumber = this.gameService.turnNumber;
     this.gameService.result = this.combisService.getResult(this.gameService.combiToFind, this.gameService.turn.combi);
-    this.gameService.turn.result = this.gameService.clone(this.gameService.result);
-    this.gameService.match.turns.push(this.gameService.clone(this.gameService.turn));
+    this.gameService.turn.result = Library.clone(this.gameService.result);
+    this.gameService.match.turns.push(Library.clone(this.gameService.turn));
 
     if (this.gameService.turn.result.nbBlack === environment.COMBI_COLOR_NUMBER) {
       this.gameService.isGameWin = true;
@@ -76,9 +80,9 @@ export class GameComponent implements OnInit {
       this.router.navigate(['end']);
     }
     this.gameService.updateIsCombiPlayable();
-    let combi = new Combi(this.gameService.clone(this.gameService.combiToPlayList));
+    let combi = new Combi(Library.clone(this.gameService.combiToPlayList));
     this.statsService.updateStatistics(combi,
-      this.gameService.clone(this.gameService.result),
+      Library.clone(this.gameService.result),
       this.gameService.turnNumber);
     this.gameService.turnNumber++; // TODO attention !!!
   }
@@ -120,10 +124,9 @@ export class GameComponent implements OnInit {
           this.transferDataArray(event);
         }
         else {
-          //let colorToRemove = this.gameService.combiToPlayList[event.currentIndex];
-          let colorToRemove = this.gameService.combiToPlayList.splice(event.currentIndex, 1)[0];
-          this.gameService.colorList.push(colorToRemove);
-          this.transferDataArray(event);
+          //let colorToRemove = this.gameService.combiToPlayList.splice(event.currentIndex, 1)[0];
+          //this.gameService.colorList.push(colorToRemove);
+          //this.transferDataArray(event);
         }
 
       }
@@ -131,7 +134,7 @@ export class GameComponent implements OnInit {
         this.transferDataArray(event);
       }
     }
-    this.gameService.updateIsCombiPlayable(); //this.gameService.combiToPlayList.length == environment.COMBI_COLOR_NUMBER
+    this.gameService.updateIsCombiPlayable();
   }
 
   transferDataArray(event: CdkDragDrop<Color[]>): void {

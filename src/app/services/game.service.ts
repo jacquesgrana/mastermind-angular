@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import { Library } from '../libraries/library';
 import { Color } from '../model/color';
 import { Combi } from '../model/combi';
 import { ColorEnum } from '../model/enums/color-enum';
@@ -38,7 +39,7 @@ export class GameService {
 
 
 
-  public colorList: Color[] = this.clone(this.colorsService.colorListAll);
+  public colorList: Color[] = Library.clone(this.colorsService.colorListAll);
 
   constructor(
     private colorsService : ColorsService
@@ -60,9 +61,7 @@ export class GameService {
     return toReturn;
   }
 
-  clone(toClone: any): any {
-    return JSON.parse(JSON.stringify(toClone));
-  }
+
 
   generateCombiToFind(): void {
     for (let i = 0; i < environment.COMBI_COLOR_NUMBER; i++) {
@@ -136,7 +135,7 @@ export class GameService {
     this.combiToPlayList = [];
     this.isGameWin = false;
     this.isGameLost = false;
-    this.colorList = this.colorsService.colorListAll;
+    this.colorList = Library.clone(this.colorsService.colorListAll);
     this.isCombiPlayable = false;
   }
 
