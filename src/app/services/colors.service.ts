@@ -97,4 +97,16 @@ export class ColorsService {
   getColorById(id: number): Color {
     return this.colorListAll.filter(c => c.colorId === id)[0];
   }
+
+  compareColors(color1: Color, color2: Color): boolean {
+    let toReturn: boolean = color1.colorId === color2.colorId;
+    toReturn = toReturn && color1.colorType === color2.colorType;
+    toReturn = toReturn && color1.colorName === color2.colorName;
+    toReturn = toReturn && color1.colorValueHex === color2.colorValueHex;
+    toReturn = toReturn && color1.colorHTMLName === color2.colorHTMLName;
+    toReturn = toReturn && color1.classColorBg === color2.classColorBg;
+    toReturn = toReturn && color1.classColorTxt === color2.classColorTxt;
+    return toReturn;
+  }
+
 }

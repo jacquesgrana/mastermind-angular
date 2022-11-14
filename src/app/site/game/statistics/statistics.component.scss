@@ -7,6 +7,18 @@
   margin-bottom: 2rem;
 }
 
+h2 {
+  font-size: 1.6rem;
+}
+
+h3 {
+  font-size: 1.2rem;
+}
+
+h4 {
+  font-size: 0.8rem;
+}
+
 ::ng-deep .dialog, .dialog {
   display: flex !important;
   justify-content:flex-start !important;
@@ -36,19 +48,22 @@
 
 .circle {
   display: inline-block;
-  width: 80px;
-  height: 80px;
-  border: 6px solid black;
-  border-radius: 40px;
-  margin: 0.25rem;
-}
-
-.circle-little {
-  display: inline-block;
   width: 60px;
   height: 60px;
   border: 6px solid black;
   border-radius: 30px;
+  margin: 0.25rem;
+}
+
+.circle-little {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  width: 50px;
+  height: 50px;
+  border: 6px solid black;
+  border-radius: 25px;
   margin: 0.25rem;
 }
 
@@ -57,10 +72,41 @@
   width: 30px;
   height: 30px;
   border: 6px solid black;
+
   border-radius: 15px;
 }
 
 .block-matching-combis {
   margin: auto;
+  margin-bottom: 0;
   max-height: 340px;
+  border: 6px solid black;
+  border-radius: 12px;
+  background-color: $components-background-color;
+}
+
+#block-presence-proba {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+  padding-left: 0.25rem;
+  padding-right: 0.25rem;
+  //max-width: 740px;
+  //min-height: 110px;
+  height: auto;
+  width: fit-content;
+  border: 6px solid black;
+  border-radius: 12px;
+  background-color: $components-background-color;
+}
+
+.combi-list {
+  list-style-type: none;
+}
+
+.text-color-accent {
+  color: $components-background-color-accent;
 }

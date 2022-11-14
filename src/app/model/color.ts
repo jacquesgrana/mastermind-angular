@@ -2,13 +2,13 @@ import { ColorEnum } from "./enums/color-enum";
 
 export class Color {
 
-  colorId: number;
-  colorType: ColorEnum;
-  colorName: string;
-  colorValueHex: string;
-  colorHTMLName: string;
-  classColorBg: string;
-  classColorTxt: string;
+  public colorId: number;
+  public colorType: ColorEnum;
+  public colorName: string;
+  public colorValueHex: string;
+  public colorHTMLName: string;
+  public classColorBg: string;
+  public classColorTxt: string;
 
   constructor(
     colorId: number,

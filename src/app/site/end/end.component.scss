@@ -113,3 +113,15 @@ h4 {
   background-color: $components-background-color;
   color: black !important;
 }
+
+#block-combi-to-find {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  width: 370px;
+  height: 110px;
+  border: 6px solid black;
+  border-radius: 12px;
+  background-color: $components-background-color;
+}

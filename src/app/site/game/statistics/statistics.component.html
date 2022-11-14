@@ -1,30 +1,52 @@
 <h1 class="text-center title" mat-dialog-title>Statistiques</h1>
-<div mat-dialog-content class="container block-container">
+<div mat-dialog-content class="container block-container mb-0">
 
   <div class="row">
-    <h3 class="text-center">Nombre de combinaisons possibles pour ce tour : {{statsService.matchingCombiNb}}</h3>
+    <h3 class="text-center text-color-accent">Nombre de combinaisons possibles pour ce tour : <strong
+        class="text-color-white">{{statsService.matchingCombiNb}}</strong></h3>
   </div>
-  <div class="row">
-    <h3 class="text-center">Nombre de combinaisons possibles cumulées : {{statsService.matchingCombiCumulNb}}</h3>
+  <div *ngIf="gameService.turnNumber > 2" class="row">
+    <h3 class="text-center text-color-accent">Nombre de combinaisons possibles cumulées : <strong
+        class="text-color-white">{{statsService.matchingCombiCumulNb}}</strong></h3>
   </div>
 
-  <div *ngIf="statsService.matchingCombiCumulNb <= limitMatchingCombis" class="row mt-2 block-matching-combis flex-center flex-wrap">
-    <button mat-flat-button color="accent" class="button-gen" (click)="isMatchingCombiShow = !isMatchingCombiShow">
-      <mat-icon>{{isMatchingCombiShow ? 'visibility_off' : 'visibility'}}</mat-icon> {{isMatchingCombiShow ? 'Masquer' : 'Montrer'}}
+  <div *ngIf="statsService.matchingCombiCumulNb <= limitMatchingCombis"
+    class="row mt-2 block-matching-combis flex-center flex-wrap">
+    <button mat-flat-button color="primary" class="button-gen" (click)="isMatchingCombiShow = !isMatchingCombiShow">
+      <mat-icon>{{isMatchingCombiShow ? 'visibility_off' : 'visibility'}}</mat-icon> {{isMatchingCombiShow ? 'Masquer' :
+      'Montrer'}}
     </button>
-    <div *ngIf="isMatchingCombiShow" class="mt-2">
-      <h4 class="mb-2 text-center">Combinaison(s) possible(s) : </h4>
+    <div *ngIf="isMatchingCombiShow" class="">
+      <h4 class="mb-2 text-center text-color-white">Combinaison(s) possible(s) : </h4>
     </div>
 
-    <ul *ngIf="isMatchingCombiShow" class="flex-space-between flex-wrap">
+    <ul *ngIf="isMatchingCombiShow" class="flex-space-between combi-list flex-wrap">
       <li *ngFor="let combi of statsService.matchingCombiCumulList" class="me-1 ms-1">
-        <span *ngFor="let color of combi.colors" class="circle-very-little mat-elevation-z2 {{color.classColorBg}}"></span>
+        <span *ngFor="let color of combi.colors"
+          class="circle-very-little mat-elevation-z2 {{color.classColorBg}}"></span>
       </li>
     </ul>
   </div>
+  <div class="row">
+    <h3 class="mt-2 text-center text-color-accent">Probabilités de présence :</h3>
+  </div>
+
+  <div id="block-presence-proba" class="flex-center row">
+    <span *ngFor="let item of statsService.presenceProbaMap | keyvalue"
+      class="circle-little text-color-black mat-elevation-z2 {{item.key.classColorBg}}"><strong>{{item.value}}</strong></span>
+  </div>
+
+  <div *ngIf="!statsService.isPredictedCombiEmpty" class="row">
+    <h3 class="mt-2 text-center text-color-accent">Combinaison prévue :</h3>
+  </div>
+  <div *ngIf="!statsService.isPredictedCombiEmpty" class="row block-matching-combis flex-center">
+    <span *ngFor="let f of [].constructor(combiColorNumber); let i = index"
+    class="circle mat-elevation-z2 {{statsService.predictedCombi.colors[i] !== undefined ? statsService.predictedCombi.colors[i].classColorBg : ''}}"></span>
+  </div>
+
 </div>
 <div mat-dialog-actions class="flex-center row">
-  <button mat-flat-button color="accent" class="mb-2 button-gen" (click)="onNoClick()">
+  <button mat-flat-button color="accent" class="mb-2 button-gen" (click)="dialogRef.close()">
     <mat-icon>close</mat-icon> Fermer
   </button>
 </div>

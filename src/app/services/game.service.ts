@@ -35,10 +35,6 @@ export class GameService {
   public isGameLost: boolean = false;
 
   public isCombiPlayable: boolean = false;
-
-
-
-
   public colorList: Color[] = Library.clone(this.colorsService.colorListAll);
 
   constructor(

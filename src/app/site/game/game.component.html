@@ -33,8 +33,9 @@
           <span *ngFor="let item of gameService.combiToPlayList" cdkDrag
             class="circle mat-elevation-z2 {{item.classColorBg}}"></span>
         </div>
+        <!--cdkDropListOrientation="horizontal"-->
         <div id="block-colors-to-pick" class="flex-center mt-4 row" cdkDropList
-        cdkDropListOrientation="horizontal"
+
           [cdkDropListData]="gameService.colorList" (cdkDropListDropped)="drop($event)">
           <span *ngFor="let item of gameService.colorList" cdkDrag
             class="circle mat-elevation-z2 {{item.classColorBg}}"></span>
@@ -63,7 +64,7 @@
           <mat-icon>check_circle</mat-icon> Tour Suivant
         </button>
         <button *ngIf="gameService.getGameType() === 'Facile'" mat-raised-button (click)="this.openStats()" disabled="{{gameService.turnNumber == 1}}" type="button"
-          class="button-gen" color="accent">
+          class="button-gen" color="primary">
           <mat-icon>analytics</mat-icon> Statistiques
         </button>
 
