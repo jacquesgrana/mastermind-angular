@@ -22,7 +22,7 @@ export class StatisticsService {
 
   presenceProbaMap!: Map<Color, number>;
 
-  predictedCombi: Combi = {colors:[]};
+  predictedCombi: Combi = { colors: [] };
   isPredictedCombiEmpty: boolean = true;
 
   constructor(
@@ -34,7 +34,7 @@ export class StatisticsService {
     this.predictedCombi.colors.push();
     this.predictedCombi.colors.push();
     this.predictedCombi.colors.push();
-   }
+  }
 
   generateAllCombiList(): void {
     for (let i = 0; i < environment.COLOR_NUMBER; i++) {
@@ -67,7 +67,7 @@ export class StatisticsService {
 
     this.calculateMatchingCombis(combiToAdd, this.allCombiList, result);
     this.matchingCombiNb = this.matchingCombiList.length;
-    if(turnNumber > 1) {
+    if (turnNumber > 1) {
       this.calculateMatchingCombisCumul(combiToAdd, this.matchingCombiCumulList, result);
     }
     else {
@@ -82,7 +82,7 @@ export class StatisticsService {
   calculateMatchingCombis(combiToAdd: Combi, combiList: Combi[], result: Result): void {
     this.matchingCombiList = [];
     combiList.forEach(c => {
-      if(JSON.stringify(this.combisService.getResult(c, combiToAdd)) === JSON.stringify(result)) {
+      if (JSON.stringify(this.combisService.getResult(c, combiToAdd)) === JSON.stringify(result)) {
         this.matchingCombiList.push(c);
       }
     });
@@ -90,9 +90,9 @@ export class StatisticsService {
   }
 
   calculateMatchingCombisCumul(combiToAdd: Combi, combiList: Combi[], result: Result): void {
-    let combiCumulList : Combi[] = [];
+    let combiCumulList: Combi[] = [];
     combiList.forEach(c => {
-      if(JSON.stringify(this.combisService.getResult(c, combiToAdd)) === JSON.stringify(result)) {
+      if (JSON.stringify(this.combisService.getResult(c, combiToAdd)) === JSON.stringify(result)) {
         combiCumulList.push(c);
       }
     });
@@ -101,17 +101,17 @@ export class StatisticsService {
 
   calculatePresenceProba(combiList: Combi[], colorList: Color[]): void {
     // boucle sur les 8 couleurs : color : colorList
-      // compteur = 0
-      // boucle sur combiList : combi
-        // si combi contient color compteur++
+    // compteur = 0
+    // boucle sur combiList : combi
+    // si combi contient color compteur++
 
-      // proba = (compteur / combiList.length) * 100
-      // presenceProbaMap.push(color, proba)
+    // proba = (compteur / combiList.length) * 100
+    // presenceProbaMap.push(color, proba)
     this.presenceProbaMap = new Map([]);
     colorList.forEach(color => {
       let counter = 0
       combiList.forEach(combi => {
-        if(combi.colors.includes(color)) {
+        if (combi.colors.includes(color)) {
           counter++;
         }
       });
@@ -124,28 +124,28 @@ export class StatisticsService {
 
   calculatePredictedCombi(combiList: Combi[], colorList: Color[]): void {
     // boucle sur i de 0 a 3 : les 4 element de predicted
-      // isPresent = true;
-      // boucle sur les 8 couleurs : color : colorList
-        // boucle sur combiList : combi
-          // si combi.color[i] === color
-            // isPresent = isPresent && true
-          // else
-            // isPresent = isPresent && true
-        // si isPresent == true --> predictedCombi[i] = clone(color)
-
-    for(let i=0; i<environment.COMBI_COLOR_NUMBER; i++) {
+    // isPresent = true;
+    // boucle sur les 8 couleurs : color : colorList
+    // boucle sur combiList : combi
+    // si combi.color[i] === color
+    // isPresent = isPresent && true
+    // else
+    // isPresent = isPresent && true
+    // si isPresent == true --> predictedCombi[i] = clone(color)
+    this.predictedCombi.colors = [];
+    for (let i = 0; i < environment.COMBI_COLOR_NUMBER; i++) {
 
       colorList.forEach(color => {
         let isAllwaysPresent: boolean = true;
         combiList.forEach(combi => {
-          if(JSON.stringify(combi.colors[i]) === JSON.stringify(color)) { //this.colorsService.compareColors(combi.colors[i], color)
+          if (JSON.stringify(combi.colors[i]) === JSON.stringify(color)) { //this.colorsService.compareColors(combi.colors[i], color)
             isAllwaysPresent = isAllwaysPresent && true;
           }
           else {
             isAllwaysPresent = isAllwaysPresent && false;
           }
         });
-        if(isAllwaysPresent) {
+        if (isAllwaysPresent) {
           this.isPredictedCombiEmpty = false;
           this.predictedCombi.colors[i] = Library.clone(color);
         }

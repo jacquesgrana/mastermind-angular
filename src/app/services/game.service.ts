@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { Observable, Subject, Subscription, takeUntil } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Library } from '../libraries/library';
 import { Color } from '../model/color';
@@ -9,6 +11,7 @@ import { Match } from '../model/match';
 import { Result } from '../model/result';
 import { Turn } from '../model/turn';
 import { ColorsService } from './colors.service';
+import { TimerService } from './timer.service';
 /*
 const MAX_TURN_NUMBER: number = 12;
 const COLOR_NUMBER: number = 8;
@@ -18,6 +21,8 @@ const COMBI_COLOR_NUMBER: number = 4;
   providedIn: 'root'
 })
 export class GameService {
+
+  //public notifier = new Subject();
 
   public gameType: GameTypeEnum = GameTypeEnum.EASY;
   public isGameLaunched: boolean = false;
@@ -37,8 +42,23 @@ export class GameService {
   public isCombiPlayable: boolean = false;
   public colorList: Color[] = Library.clone(this.colorsService.colorListAll);
 
+  public timeLeft: number = 1000;
+  public timeLeftSecond: number = 0;
+  public timeLeftMinute: number = 0;
+
+  public timerMinut: string = '';
+  public timerSecond: string = '';
+
+  public subscription!: Subscription;
+  public isTimerStopped: Subject<boolean> = new Subject();
+  public isTimerPaused: Subject<boolean> = new Subject();
+
+  public gamePaused: boolean = false;
+
   constructor(
-    private colorsService : ColorsService
+    private colorsService : ColorsService,
+    private timerService: TimerService,
+    private router: Router
   ) { }
 
   getGameType(): string {
@@ -73,54 +93,10 @@ export class GameService {
     }
     console.log('combi to find :', this.combiToFind);
   }
-/*
-  getResult(combiToFind: Combi, combiToTest: Combi): Result {
-    let nbWhite = this.getWhiteNumber(combiToFind, combiToTest);
-    let nbBlack = this.getBlackNumber(combiToFind, combiToTest);
-    return { nbWhite: nbWhite, nbBlack: nbBlack };
-  }
-
-  getWhiteNumber(combiToFind: Combi, combiToTest: Combi): number {
-    let toReturn: number = 0;
-    let i: number = 0;
-    let j: number = 0;
-    combiToTest.colors.forEach(ctt => {
-      j = 0;
-      combiToFind.colors.forEach(
-        ctf => {
-          if (JSON.stringify(ctf) === JSON.stringify(ctt) && j !== i) {
-            toReturn++;
-          }
-          j++
-        }
-      );
-      i++;
-    });
-    return toReturn;
-  }
-
-  getBlackNumber(combiToFind: Combi, combiToTest: Combi): number {
-    let toReturn: number = 0;
-    let i: number = 0;
-    let j: number = 0;
-    combiToTest.colors.forEach(ctt => {
-      j = 0;
-      combiToFind.colors.forEach(
-        ctf => {
-          if (JSON.stringify(ctf) === JSON.stringify(ctt) && j === i) {
-            toReturn++;
-          }
-          j++
-        }
-      );
-      i++;
-    });
-    return toReturn;
-  }
-  */
 
   clearMatchValues(): void {
-    this.gameType = GameTypeEnum.EASY;
+    //const temp: GameTypeEnum = this.gameType;
+    //this.gameType = GameTypeEnum.EASY;
     this.isGameLaunched = false;
     this.turnNumber = 1;
     this.match = { isPlayerWin: false, difficulty: GameTypeEnum.EASY, turns: [] };
@@ -133,6 +109,13 @@ export class GameService {
     this.isGameLost = false;
     this.colorList = Library.clone(this.colorsService.colorListAll);
     this.isCombiPlayable = false;
+
+    this.timeLeft = 0;
+    this.timeLeftMinute = 0;
+    this.timeLeftSecond = 0;
+    if(this.subscription) {
+      this.stopTimer();
+    }
   }
 
   updateIsCombiPlayable(): void {
@@ -148,5 +131,55 @@ export class GameService {
       }
     }
     this.isCombiPlayable = toReturn;
+  }
+
+  updateTimer(value: number): void {
+    // TODO mettre dans environment
+    const MATCH_TIME: number = 200;
+    this.timeLeft = MATCH_TIME - value;
+    this.timeLeftMinute = Math.floor(this.timeLeft/60);
+    this.timeLeftSecond = this.timeLeft%60;
+    //console.log('timer value :', value);
+    console.log('timeLeft :', this.timeLeft);
+    //console.log('timeLeftMinute :', this.timeLeftMinute);
+    //console.log('timeLeftSecond :', this.timeLeftSecond);
+
+    this.timerMinut = (this.timeLeftMinute < 10 ? '0' : '') + this.timeLeftMinute;
+    this.timerSecond = (this.timeLeftSecond < 10 ? '0' : '') + this.timeLeftSecond;
+
+    if(this.timeLeft === 0) {
+      this.isGameLost = true;
+      this.isGameWin = false;
+      this.stopTimer(); // TODO marche pas
+      this.router.navigate(['end']);
+    }
+  }
+
+  setTimer() {
+    this.timerService.createTimer();
+    this.subscription = this.timerService.getObservable()
+      .pipe(takeUntil(this.isTimerStopped))
+      .pipe(takeUntil(this.isTimerPaused))
+      .subscribe(val => this.updateTimer(val));
+  }
+
+  pauseTimer() {
+    this.gamePaused = !this.gamePaused;
+    if(this.gamePaused) {
+      this.isTimerPaused.next(true);
+      //this.isTimerPaused.complete();
+      this.subscription.unsubscribe();
+      this.timerService.pause();
+    }
+    else {
+      this.setTimer();
+    }
+  }
+
+  stopTimer() {
+    this.isTimerStopped.next(true);
+    //this.isTimerStopped.complete();
+    this.subscription.unsubscribe();
+    this.timerService.resetObservable();
   }
 }

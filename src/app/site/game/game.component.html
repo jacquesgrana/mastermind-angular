@@ -26,52 +26,57 @@
         <h4 class="text-center-perso">Tour n° {{gameService.turnNumber}}</h4>
       </div>
 
+      <div *ngIf="gameService.getGameType() === 'Difficile'" class="mt-4 row flex-center">
+        <div class="block-timer" (click)="gameService.pauseTimer()">
+          {{gameService.timerMinut}} : {{gameService.timerSecond}}
+        </div>
+      </div>
+
       <div class="mt-4" cdkDropListGroup>
-        <div id="block-combi-to-play" class="flex-center row" cdkDropList
-        cdkDropListOrientation="horizontal"
+        <div id="block-combi-to-play" class="flex-center row" cdkDropList cdkDropListOrientation="horizontal"
           [cdkDropListData]="gameService.combiToPlayList" (cdkDropListDropped)="drop($event)">
           <span *ngFor="let item of gameService.combiToPlayList" cdkDrag
             class="circle mat-elevation-z2 {{item.classColorBg}}"></span>
         </div>
         <!--cdkDropListOrientation="horizontal"-->
         <div id="block-colors-to-pick" class="flex-center mt-4 row" cdkDropList
-
           [cdkDropListData]="gameService.colorList" (cdkDropListDropped)="drop($event)">
           <span *ngFor="let item of gameService.colorList" cdkDrag
             class="circle mat-elevation-z2 {{item.classColorBg}}"></span>
         </div>
       </div>
       <div class="row flex-center">
-      <ng-container *ngIf="gameService.turnNumber > 1">
-        <h4 class="mt-5 text-center-perso">Tour(s) Précédent(s) :</h4>
-        <div *ngFor="let turn of gameService.match.turns" class="block-turn">
-          <span class="turn-number"><strong>{{turn.turnNumber}}</strong></span>
-          <span class="me-2">
-            <span *ngFor="let color of turn.combi.colors"
-              class="circle-little mat-elevation-z2 {{color.classColorBg}}"></span>
-          </span>
-          <span *ngFor="let f of [].constructor(turn.result.nbBlack); let r = index"
-            class="circle-very-little mat-elevation-z2 color-black"></span>
-          <span *ngFor="let f of [].constructor(turn.result.nbWhite); let r = index"
-            class="circle-very-little mat-elevation-z2 color-white"></span>
-        </div>
-      </ng-container>
-    </div>
+        <ng-container *ngIf="gameService.turnNumber > 1">
+          <h4 class="mt-5 text-center-perso">Tour(s) Précédent(s) :</h4>
+          <div *ngFor="let turn of gameService.match.turns" class="block-turn">
+            <span class="turn-number"><strong>{{turn.turnNumber}}</strong></span>
+            <span class="me-2">
+              <span *ngFor="let color of turn.combi.colors"
+                class="circle-little mat-elevation-z2 {{color.classColorBg}}"></span>
+            </span>
+            <span *ngFor="let f of [].constructor(turn.result.nbBlack); let r = index"
+              class="circle-very-little mat-elevation-z2 color-black"></span>
+            <span *ngFor="let f of [].constructor(turn.result.nbWhite); let r = index"
+              class="circle-very-little mat-elevation-z2 color-white"></span>
+          </div>
+        </ng-container>
+      </div>
       <div class="row flex-center mt-4">
 
         <button mat-raised-button (click)="this.nextTurn()" disabled="{{!gameService.isCombiPlayable}}" type="button"
           class="button-gen" color="primary">
           <mat-icon>check_circle</mat-icon> Tour Suivant
         </button>
-        <button *ngIf="gameService.getGameType() === 'Facile'" mat-raised-button (click)="this.openStats()" disabled="{{gameService.turnNumber == 1}}" type="button"
-          class="button-gen" color="primary">
+        <button *ngIf="gameService.getGameType() === 'Facile'" mat-raised-button (click)="this.openStats()"
+          disabled="{{gameService.turnNumber == 1}}" type="button" class="button-gen" color="primary">
           <mat-icon>analytics</mat-icon> Statistiques
         </button>
 
       </div>
     </ng-container>
     <div class="mt-2 row flex-center">
-      <button mat-raised-button type="button" [routerLink]="['/start']" (click)="gameService.clearMatchValues()" class="button-gen" color="accent">
+      <button mat-raised-button type="button" [routerLink]="['/start']" (click)="gameService.clearMatchValues()"
+        class="button-gen" color="accent">
         <mat-icon>rule</mat-icon> Retour
       </button>
     </div>

@@ -10,4 +10,8 @@ export abstract class Library {
   public static clone(toClone: any): any {
     return JSON.parse(JSON.stringify(toClone));
   }
+
+  public static compare(obj1:any, obj2: any): boolean {
+    return JSON.stringify(obj1) === JSON.stringify(obj2);
+  }
 }

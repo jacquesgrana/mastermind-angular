@@ -150,6 +150,21 @@ h4 {
   color: black !important;
 }
 
+.block-timer {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  width: 200px;
+  height: 80px;
+  margin: auto;
+  margin-top: 1rem;
+  border: 6px solid black;
+  border-radius: 12px;
+  background-color: $components-background-color;
+  color: $components-background-color-accent !important;
+}
+
 #block-combi-to-play {
   display: flex;
   align-items: center;

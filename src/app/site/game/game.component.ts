@@ -2,6 +2,7 @@ import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/dr
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { takeUntil } from 'rxjs';
 import { Library } from 'src/app/libraries/library';
 import { Color } from 'src/app/model/color';
 import { Combi } from 'src/app/model/combi';
@@ -9,6 +10,7 @@ import { GameTypeEnum } from 'src/app/model/enums/game-type-enum';
 import { CombisService } from 'src/app/services/combis.service';
 import { GameService } from 'src/app/services/game.service';
 import { StatisticsService } from 'src/app/services/statistics.service';
+import { TimerService } from 'src/app/services/timer.service';
 import { environment } from 'src/environments/environment';
 import { StatisticsComponent } from './statistics/statistics.component';
 
@@ -26,30 +28,32 @@ export class GameComponent implements OnInit {
     private combisService: CombisService,
     public dialogStats: MatDialog,
     private router: Router
-  ) { }
+  ) {
+    this.statsService.generateAllCombiList();
+   }
 
   ngOnInit(): void {
-    //this.setGameType('EASY');
-    this.statsService.generateAllCombiList();
-    //console.log('nb max combis : ', environment.MAX_COMBI_NUMBER);
 
+    this.setGameType('EASY');
   }
 
   launchGame(): void {
-    //this.gameService.isGameLaunched = true;
+    //const temp: GameTypeEnum = this.gameService.gameType;
     this.gameService.clearMatchValues();
-    this.gameService.isGameLaunched = true; // TODO enlever qd ok
+    //this.gameService.gameType = temp;
+    // TODO améliorer
+    this.gameService.isGameLaunched = true;
     this.gameService.combiToFind = { colors: [] };
     this.gameService.generateCombiToFind();
-
-    // affecter match
     this.gameService.match.difficulty = this.gameService.gameType;
     this.gameService.match.isPlayerWin = false;
+
+    if(this.gameService.gameType === GameTypeEnum.HARD) {
+      this.gameService.setTimer();
+    }
   }
 
   nextTurn(): void {
-    // si tour > 1 : affichage de la ligne précédente --> ngFor sur match.turns
-
     this.gameService.combi.colors = Library.clone(this.gameService.combiToPlayList);
     this.gameService.turn.combi.colors = Library.clone(this.gameService.combi.colors);
     this.gameService.turn.combi = Library.clone(this.gameService.combi);
@@ -66,6 +70,10 @@ export class GameComponent implements OnInit {
       this.gameService.isGameLost = true;
     }
 
+    if (this.gameService.gameType === GameTypeEnum.HARD && this.gameService.timeLeft === 0) {
+      this.gameService.isGameLost = true;
+    }
+
     if (this.gameService.isGameWin) {
       //alert('Partie gagnée !');
       this.gameService.isGameLost = false;
@@ -77,6 +85,9 @@ export class GameComponent implements OnInit {
     }
 
     if (this.gameService.isGameWin || this.gameService.isGameLost) {
+      if(this.gameService.gameType === GameTypeEnum.HARD) {
+        this.gameService.stopTimer();
+      }
       this.router.navigate(['end']);
     }
     this.gameService.updateIsCombiPlayable();
@@ -153,4 +164,8 @@ export class GameComponent implements OnInit {
       panelClass: ['dialog']
     });
   }
+/*
+  stopTimer() {
+    //this.timerService.getObservable().unsubscribe();
+  }*/
 }
