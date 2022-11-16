@@ -49,6 +49,8 @@ export class GameService {
   public timerMinut: string = '';
   public timerSecond: string = '';
 
+  public timePercent: number = 0;
+
   public subscription!: Subscription;
   public isTimerStopped: Subject<boolean> = new Subject();
   public isTimerPaused: Subject<boolean> = new Subject();
@@ -134,7 +136,7 @@ export class GameService {
   }
 
   updateTimer(value: number): void {
-    // TODO mettre dans environment
+    // TODO mettre dans environment *******************************************************************
     const MATCH_TIME: number = 200;
     this.timeLeft = MATCH_TIME - value;
     this.timeLeftMinute = Math.floor(this.timeLeft/60);
@@ -147,10 +149,12 @@ export class GameService {
     this.timerMinut = (this.timeLeftMinute < 10 ? '0' : '') + this.timeLeftMinute;
     this.timerSecond = (this.timeLeftSecond < 10 ? '0' : '') + this.timeLeftSecond;
 
+    this.timePercent = 100 - Math.round(100 * this.timeLeft / MATCH_TIME);
+
     if(this.timeLeft === 0) {
       this.isGameLost = true;
       this.isGameWin = false;
-      this.stopTimer(); // TODO marche pas
+      this.stopTimer();
       this.router.navigate(['end']);
     }
   }

@@ -1,0 +1,70 @@
+@import "src/library";
+@import "src/theme";
+
+h1 {
+  font-size: 4rem;
+}
+
+h2 {
+  font-size: 3rem;
+}
+
+h3 {
+  font-size: 2rem;
+  line-height: 2.4rem;
+}
+
+h4 {
+  font-size: 1.5rem;
+}
+
+p {
+  font-size: 1rem;
+  flex-grow: 1;
+}
+
+::ng-deep .dialog, .dialog {
+  display: flex !important;
+  justify-content:flex-start !important;
+  flex-direction: column !important;
+  width: 100vh !important;
+  height: 90vh !important;
+}
+
+.button-gen {
+  width: 160px;
+  height: 60px;
+  //margin: auto;
+  margin: 1rem;
+  border: 6px solid black;
+  border-radius: 12px;
+  color: $components-background-color-accent !important;
+}
+
+.flex {
+  display: flex;
+  justify-content:flex-start;
+  flex-direction: column;
+}
+
+.title {
+  color: $components-background-color-accent !important;
+  text-align: center;
+}
+
+.text {
+  text-align: center;
+}
+
+#block-container {
+  margin: auto;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  min-width: 100vh;
+  min-height: 100vh;
+  flex-grow: 1;
+}
+
+.bottom {
+  align-self: flex-end;
+}

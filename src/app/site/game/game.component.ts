@@ -10,8 +10,8 @@ import { GameTypeEnum } from 'src/app/model/enums/game-type-enum';
 import { CombisService } from 'src/app/services/combis.service';
 import { GameService } from 'src/app/services/game.service';
 import { StatisticsService } from 'src/app/services/statistics.service';
-import { TimerService } from 'src/app/services/timer.service';
 import { environment } from 'src/environments/environment';
+import { PauseComponent } from './pause/pause.component';
 import { StatisticsComponent } from './statistics/statistics.component';
 
 
@@ -27,13 +27,13 @@ export class GameComponent implements OnInit {
     private statsService: StatisticsService,
     private combisService: CombisService,
     public dialogStats: MatDialog,
+    public dialogPause: MatDialog,
     private router: Router
   ) {
     this.statsService.generateAllCombiList();
    }
 
   ngOnInit(): void {
-
     this.setGameType('EASY');
   }
 
@@ -50,6 +50,19 @@ export class GameComponent implements OnInit {
 
     if(this.gameService.gameType === GameTypeEnum.HARD) {
       this.gameService.setTimer();
+    }
+  }
+
+  pauseGame(): void {
+    this.gameService.pauseTimer();
+    // selon le booleen this.gameService.gamePaused
+    // true : ouvre la modal pause
+    if(this.gameService.gamePaused) {
+      console.log('ouverture modale pause');
+      const dialogRefPause = this.dialogPause.open(PauseComponent, {
+        disableClose: true,
+        panelClass: ['dialog']
+      });
     }
   }
 
@@ -159,7 +172,7 @@ export class GameComponent implements OnInit {
 
   openStats() {
     console.log('ouverture des stats');
-    const dialogRefUser = this.dialogStats.open(StatisticsComponent, {
+    const dialogRefStats = this.dialogStats.open(StatisticsComponent, {
       disableClose: true,
       panelClass: ['dialog']
     });

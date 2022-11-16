@@ -27,9 +27,13 @@
       </div>
 
       <div *ngIf="gameService.getGameType() === 'Difficile'" class="mt-4 row flex-center">
-        <div class="block-timer" (click)="gameService.pauseTimer()">
-          {{gameService.timerMinut}} : {{gameService.timerSecond}}
+        <div class="block-timer flex-center flex-wrap" (click)="pauseGame()">
+          <span>
+            {{gameService.timerMinut}} : {{gameService.timerSecond}}
+          </span>
+          <mat-progress-bar color="accent" mode="determinate" value="{{gameService.timePercent}}"></mat-progress-bar>
         </div>
+
       </div>
 
       <div class="mt-4" cdkDropListGroup>

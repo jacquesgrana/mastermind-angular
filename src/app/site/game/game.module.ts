@@ -5,12 +5,14 @@ import { MaterialModule } from 'src/app/material-module';
 import { RouterModule } from '@angular/router';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { StatisticsComponent } from './statistics/statistics.component';
+import { PauseComponent } from './pause/pause.component';
 
 
 @NgModule({
   declarations: [
     GameComponent,
-    StatisticsComponent
+    StatisticsComponent,
+    PauseComponent
   ],
   imports: [
     CommonModule,

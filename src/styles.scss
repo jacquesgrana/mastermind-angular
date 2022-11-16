@@ -19,9 +19,9 @@ mat-dialog-container {
   background-color: $components-background-color-bis !important;
   color: $components-foreground-color !important;
   margin: auto !important;
-  width: 800px !important;
+  //width: 800px !important;
   min-height: 200px !important;
-  max-width: 80% !important;
+  max-width: 100% !important;
   outline: 6px solid black !important;
   border-radius: 20px !important;
 }

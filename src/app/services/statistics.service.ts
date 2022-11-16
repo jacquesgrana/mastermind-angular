@@ -37,6 +37,7 @@ export class StatisticsService {
   }
 
   generateAllCombiList(): void {
+    this.allCombiList = [];
     for (let i = 0; i < environment.COLOR_NUMBER; i++) {
       for (let j = 0; j < environment.COLOR_NUMBER; j++) {
         for (let k = 0; k < environment.COLOR_NUMBER; k++) {

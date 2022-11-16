@@ -17,7 +17,6 @@ export class TimerService {
 
 
   public createTimer() {
-
     this.interval = setInterval(() => {
       if(!this.isPaused) {
         const newVal = this.source.getValue() + 1;

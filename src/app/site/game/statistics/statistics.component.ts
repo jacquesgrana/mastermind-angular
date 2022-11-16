@@ -20,7 +20,7 @@ export class StatisticsComponent implements OnInit {
     public statsService: StatisticsService,
     public colorService: ColorsService,
     public gameService: GameService,
-    public dialogRef: MatDialogRef<StatisticsComponent>,
+    public dialogRef: MatDialogRef<StatisticsComponent>
   ) { }
 
   ngOnInit(): void {
