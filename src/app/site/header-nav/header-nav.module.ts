@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HeaderNavComponent } from './header-nav.component';
 import { MaterialModule } from 'src/app/material-module';
+import { RouterModule } from '@angular/router';
 
 
 
@@ -11,7 +12,8 @@ import { MaterialModule } from 'src/app/material-module';
   ],
   imports: [
     CommonModule,
-    MaterialModule
+    MaterialModule,
+    RouterModule
   ],
   exports: [
     HeaderNavComponent

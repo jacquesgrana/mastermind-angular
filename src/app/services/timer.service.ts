@@ -30,6 +30,7 @@ export class TimerService {
   }
 
 public resetObservable() {
+  clearInterval(this.interval);
   this.source = new BehaviorSubject<number>(0);
 }
 

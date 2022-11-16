@@ -28,6 +28,16 @@
 </mat-sidenav-container>
 -->
 <mat-toolbar class="body-container">
+  <mat-toolbar-row class="flex-start">
+  <button mat-button [matMenuTriggerFor]="menu" color="accent">
+    <mat-icon class="menu-icon">menu</mat-icon>
+  </button>
+</mat-toolbar-row>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item [routerLink]="'start'">Règles</button>
+    <button mat-menu-item [routerLink]="'game'">Jouer</button>
+  </mat-menu>
+
   <mat-toolbar-row class="flex-center div-title">
     <h1 class="">{{title}}</h1>
   </mat-toolbar-row>

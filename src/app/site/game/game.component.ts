@@ -177,6 +177,11 @@ export class GameComponent implements OnInit {
       panelClass: ['dialog']
     });
   }
+
+  exitToStartPage(): void {
+    this.gameService.clearMatchValues(); // TODO garder?
+    this.router.navigate(['start']);
+  }
 /*
   stopTimer() {
     //this.timerService.getObservable().unsubscribe();
