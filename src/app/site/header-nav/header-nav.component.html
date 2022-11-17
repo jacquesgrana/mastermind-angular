@@ -36,6 +36,7 @@
   <mat-menu #menu="matMenu">
     <button mat-menu-item [routerLink]="'start'">Règles</button>
     <button mat-menu-item [routerLink]="'game'">Jouer</button>
+    <button mat-menu-item (click)="openSettings()">Réglages</button>
   </mat-menu>
 
   <mat-toolbar-row class="flex-center div-title">

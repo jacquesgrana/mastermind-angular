@@ -1,0 +1,37 @@
+@import "src/library";
+@import "src/theme";
+
+.body-container {
+  margin-top: 4rem;
+  margin-bottom: 4rem;
+  margin-left: 2rem;
+  margin-right: 2rem;
+  flex-grow: 1;
+  color: $components-background-color-accent;
+}
+
+.block-container {
+  max-width: 800px;
+  margin: auto;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  padding: 2rem;
+  background-color: $components-background-color-bis;
+  border: 6px solid black;
+  border-radius: 25px;
+
+}
+
+.text-center-perso {
+  text-align: center;
+  justify-content: center;
+}
+
+.button-gen {
+  max-width: 150px;
+  margin: auto;
+  height: 60px;
+  margin-top: 1rem;
+  border: 6px solid black;
+  border-radius: 12px;
+}

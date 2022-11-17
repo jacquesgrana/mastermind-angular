@@ -23,12 +23,16 @@ p {
   flex-grow: 1;
 }
 
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+  background-color: $components-background-color-tetra !important;
+  color: $components-foreground-color !important;
+  border-radius: 10px !important;
+}
+
 ::ng-deep .dialog, .dialog {
   display: flex !important;
   justify-content:flex-start !important;
   flex-direction: column !important;
-  width: 100vh !important;
-  height: 90vh !important;
 }
 
 .button-gen {
@@ -54,17 +58,4 @@ p {
 
 .text {
   text-align: center;
-}
-
-#block-container {
-  margin: auto;
-  margin-top: 2rem;
-  margin-bottom: 2rem;
-  min-width: 100vw;
-  min-height: 100vh;
-  flex-grow: 1;
-}
-
-.bottom {
-  align-self: flex-end;
 }

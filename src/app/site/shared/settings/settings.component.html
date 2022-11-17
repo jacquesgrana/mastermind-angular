@@ -1,0 +1,20 @@
+<div  id="block-container flex-center flex-wrap">
+  <h3 class="text-center title mt-4">Réglages du jeu</h3>
+  <div mat-dialog-content class="flex-column flex-center">
+    <h4 class="text-center title mt-2">Temps max d'une partie (en s.)</h4>
+    <mat-form-field appearance="outline" color="primary">
+      <mat-label for="maxMatchTime">Temps max d'une partie (s) :</mat-label>
+      <input [(ngModel)]="maxMatchTime" matInput type="number" min="20" max="600" step="10" placeholder="ex. : 200">
+    </mat-form-field>
+    <mat-slider [(ngModel)]="maxMatchTime" showTickMarks discrete thumbLabel name="maxMatchTime" min="20" max="600" step="10" tickInterval="10">
+    </mat-slider>
+  </div>
+  <div mat-dialog-actions class="flex-center mt-4 mb-2">
+    <button mat-flat-button [mat-dialog-close]="true" color="accent" class="button-gen">
+      <mat-icon>close</mat-icon> Fermer
+    </button>
+    <button mat-flat-button [mat-dialog-close]="true" (click)="validateChoices()" color="primary" class="button-gen">
+      <mat-icon>done</mat-icon> Valider
+    </button>
+  </div>
+</div>

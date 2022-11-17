@@ -16,6 +16,8 @@ import { MaterialModule } from './material-module';
 import { StartModule } from './site/start/start.module';
 import { GameModule } from './site/game/game.module';
 import { EndModule } from './site/end/end.module';
+import { SharedModule } from './site/shared/shared.module';
+import { ErrorModule } from './site/error/error.module';
 
 @NgModule({
   declarations: [
@@ -37,6 +39,8 @@ import { EndModule } from './site/end/end.module';
     StartModule,
     GameModule,
     EndModule,
+    ErrorModule,
+    SharedModule,
     MaterialModule,
   ],
   providers: [],

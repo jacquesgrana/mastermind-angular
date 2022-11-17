@@ -42,6 +42,8 @@ export class GameService {
   public isCombiPlayable: boolean = false;
   public colorList: Color[] = Library.clone(this.colorsService.colorListAll);
 
+  public maxMatchTime: number = 200;
+
   public timeLeft: number = 1000;
   public timeLeftSecond: number = 0;
   public timeLeftMinute: number = 0;
@@ -137,8 +139,8 @@ export class GameService {
 
   updateTimer(value: number): void {
     // TODO mettre dans environment *******************************************************************
-    const MATCH_TIME: number = 200;
-    this.timeLeft = MATCH_TIME - value;
+
+    this.timeLeft = this.maxMatchTime - value;
     this.timeLeftMinute = Math.floor(this.timeLeft/60);
     this.timeLeftSecond = this.timeLeft%60;
     //console.log('timer value :', value);
@@ -149,7 +151,7 @@ export class GameService {
     this.timerMinut = (this.timeLeftMinute < 10 ? '0' : '') + this.timeLeftMinute;
     this.timerSecond = (this.timeLeftSecond < 10 ? '0' : '') + this.timeLeftSecond;
 
-    this.timePercent = 100 - Math.round(100 * this.timeLeft / MATCH_TIME);
+    this.timePercent = 100 - Math.round(100 * this.timeLeft / this.maxMatchTime);
 
     if(this.timeLeft === 0) {
       this.isGameLost = true;
