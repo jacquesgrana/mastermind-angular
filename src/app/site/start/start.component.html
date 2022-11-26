@@ -1,10 +1,53 @@
 <div class="body-container">
   <section class="block-container container">
-    <h2 class="mt-2 row text-center-perso">Règles du Jeu</h2>
-    <p class="mt-2 row text-center-perso">Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum itaque ullam odit veritatis autem voluptates hic debitis quos quasi, libero aliquam architecto molestias sunt deleniti repudiandae dolore temporibus eligendi nobis.
-    </p>
-    <div class="mt-2 row">
-      <button mat-raised-button type="button" [routerLink]="['/game']" class="button-gen" color="accent"><mat-icon>play_arrow</mat-icon> Jouer</button>
+    <h1 class="mt-2 row text-center-perso">Règles du Jeu :</h1>
+    <h3 class="mt-2 row text-center-perso ps-4 pe-4 text-color-white">Vous devez trouver, dans le bon ordre, une
+      combinaison de
+      {{combiColorNumber}} couleurs distinctes parmi {{colorNumber}}<br> en {{maxTurnNumber}} tours au maximum :</h3>
+    <div id="block-colors-to-show" class="flex-center mt-4 row">
+      <span *ngFor="let item of gameService.colorList" class="circle mat-elevation-z2 {{item.classColorBg}}"></span>
     </div>
+
+    <div class="block-text mt-3">
+      <h2 class="mt-3 row text-center-perso ps-4 pe-4">A chaque tour, il sera indiqué :</h2>
+      <div class="block-flex">
+        <span class="circle-very-little mat-elevation-z2 color-black"></span>
+        <mat-icon class="ms-2">arrow_forward</mat-icon>
+        <h3 class="text-center-perso pt-3 ps-2 text-color-white">Pour chaque couleur présente et bien placée,</h3>
+      </div>
+      <div class="block-flex">
+        <span class="circle-very-little mat-elevation-z2 color-white"></span>
+        <mat-icon class="ms-2">arrow_forward</mat-icon>
+        <h3 class="text-center-perso pt-3 ps-2 text-color-white">Pour chaque couleur présente mais mal placée.</h3>
+      </div>
+    </div>
+
+    <div class="block-text mt-3">
+      <h2 class="mt-3 row text-center-perso ps-4 pe-4">3 Difficultés :</h2>
+      <h3 class="mt-2 text-center-perso ps-4 pe-4">Facile : <span class="text-color-white">Accès aux statistiques de la
+          partie(*), pas de limite de temps.</span></h3>
+      <h3 class="mt-2 text-center-perso ps-4 pe-4">Normal : <span class="text-color-white">Pas d'accès aux statistiques
+          de
+          la partie(*), pas de limite de temps.</span></h3>
+      <h3 class="mt-2 text-center-perso ps-4 pe-4">Difficile : <span class="text-color-white">Pas d'accès aux
+          statistiques
+          de la partie(*), limite de temps (réglable).</span></h3>
+    </div>
+
+    <div class="mt-2 row">
+      <button mat-raised-button type="button" [routerLink]="['/game']" class="button-gen" color="accent">
+        <mat-icon>play_arrow</mat-icon> Jouer
+      </button>
+    </div>
+
+    <p class="mt-4 text-color-white">(*) : Les statistiques sont déterminées par filtrages cumulatifs en partant de la
+      liste de toutes les combinaisons possibles.
+      <br>A chaque tour, la liste des combinaison retenues est filtrée en tenant compte du résultat du tour (nombre de
+      couleurs bien placées et nombre de couleurs présentes mais mal placées).
+      <br>Dès que possible, il sera indiqué les informations suivantes : la liste des combinaisons retenues (s'il y en a
+      moins de {{limitMatchingCombis + 1}}), les probabilités de présence (toujours affichées), les couleurs présentes et
+      les couleurs absentes.
+      <br>La combinaison prévue sera construite, tour après tour, à partir de ces données.
+    </p>
   </section>
 </div>

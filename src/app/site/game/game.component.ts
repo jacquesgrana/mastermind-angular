@@ -2,7 +2,6 @@ import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/dr
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { takeUntil } from 'rxjs';
 import { Library } from 'src/app/libraries/library';
 import { Color } from 'src/app/model/color';
 import { Combi } from 'src/app/model/combi';

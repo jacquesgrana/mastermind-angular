@@ -7,7 +7,7 @@
   min-width: 100%;
   color: $components-background-color-accent;
   padding-top: 2.5rem;
-  padding-bottom: 5rem;
+  padding-bottom: 2.5rem;
   padding-left: 2rem;
   padding-right: 2rem;
   display: flex;
@@ -17,4 +17,15 @@
 
 .flex-end {
   align-self: flex-end;
+}
+
+.block-flex {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.text-link {
+  text-decoration: none;
 }

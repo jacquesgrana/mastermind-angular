@@ -35,6 +35,17 @@ p {
   flex-direction: column !important;
 }
 
+::ng-deep snack-bar-container.snackbar {
+  background-color: $components-foreground-color !important;
+  color: $components-foreground-color-accent !important;
+  outline: 6px solid black !important;
+  border-radius: 15px !important;
+}
+
+::ng-deep snack-bar-container.snackbar .mat-simple-snackbar-action {
+  color: $components-foreground-warn-color !important;
+}
+
 .button-gen {
   width: 160px;
   height: 60px;

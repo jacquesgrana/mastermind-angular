@@ -89,7 +89,6 @@ export class GameService {
       let randomNumber: number;
       do {
         randomNumber = Math.floor(Math.random() * (environment.COLOR_NUMBER));
-        //console.log('random number :', randomNumber);
         colorToAdd = this.colorsService.getColorById(randomNumber);
       }
       while (this.combiToFind.colors.includes(colorToAdd));
@@ -99,8 +98,6 @@ export class GameService {
   }
 
   clearMatchValues(): void {
-    //const temp: GameTypeEnum = this.gameType;
-    //this.gameType = GameTypeEnum.EASY;
     this.isGameLaunched = false;
     this.turnNumber = 1;
     this.match = { isPlayerWin: false, difficulty: GameTypeEnum.EASY, turns: [] };
