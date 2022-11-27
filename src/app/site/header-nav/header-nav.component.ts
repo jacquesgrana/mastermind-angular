@@ -1,5 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { NavigationEnd, Router } from '@angular/router';
+import { GameService } from 'src/app/services/game.service';
 import { SettingsComponent } from 'src/app/site/shared/settings/settings.component'
 
 @Component({
@@ -11,8 +13,12 @@ export class HeaderNavComponent {
 
   @Input() title !: string;
 
+  public currentRoute: String = '';
+
   constructor(
-    public dialogSettings: MatDialog
+    public dialogSettings: MatDialog,
+    public gameService: GameService,
+    public router: Router
   ) {}
 
   openSettings(): void {
@@ -22,6 +28,16 @@ export class HeaderNavComponent {
       disableClose: true,
       panelClass: ['dialog']
     });
+  }
+
+  openGame() {
+    this.gameService.clearMatchValues();
+    this.router.navigate(['game']);
+  }
+
+  openRules() {
+    this.gameService.clearMatchValues();
+    this.router.navigate(['start']);
   }
 
 }
