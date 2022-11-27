@@ -20,8 +20,8 @@ mat-dialog-container {
   color: $components-foreground-color !important;
   margin: auto !important;
   //width: 800px !important;
-  min-height: 200px !important;
-  max-width: 80% !important;
+  
+  //height: fit-content !important;
   outline: 6px solid black !important;
   border-radius: 20px !important;
 }

@@ -23,14 +23,6 @@ p {
   flex-grow: 1;
 }
 
-::ng-deep .dialog, .dialog {
-  display: flex !important;
-  justify-content:flex-start !important;
-  flex-direction: column !important;
-  width: 100vh !important;
-  height: 90vh !important;
-}
-
 .button-gen {
   width: 160px;
   height: 60px;
@@ -43,7 +35,7 @@ p {
 
 .flex {
   display: flex;
-  justify-content:flex-start;
+  justify-content: flex-start;
   flex-direction: column;
 }
 
@@ -60,8 +52,8 @@ p {
   margin: auto;
   margin-top: 2rem;
   margin-bottom: 2rem;
-  min-width: 100vw;
-  min-height: 100vh;
+  min-width: max-content;
+  min-height: max-content;
   flex-grow: 1;
 }
 

@@ -77,6 +77,10 @@ h4 {
   border: 6px solid whitesmoke;
 }
 
+.block-warn {
+  border: 6px solid $components-foreground-color-warn !important;
+}
+
 .circle {
   display: inline-block;
   width: 80px;
@@ -158,7 +162,7 @@ h4 {
   width: 200px;
   height: 80px;
   margin: auto;
-  margin-top: 1rem;
+  margin-top: 0rem;
   border: 6px solid black;
   border-radius: 12px;
   background-color: $components-background-color;
@@ -196,3 +200,33 @@ h4 {
   background-color: $components-background-color;
 }
 
+::ng-deep snack-bar-container.snackbar {
+  background-color: $components-foreground-color-warn !important;
+  color: $components-color-light-color !important;
+  outline: 6px solid black !important;
+  border-radius: 15px !important;
+}
+
+::ng-deep snack-bar-container.snackbar .mat-simple-snackbar-action {
+  color: $components-background-color-accent !important;
+}
+
+::ng-deep .dialog-stats {
+  mat-dialog-container {
+    display: flex !important;
+    justify-content:flex-start !important;
+    flex-direction: column !important;
+    max-width: fit-content !important;
+    max-height: auto !important;
+  }
+}
+
+::ng-deep .dialog-pause {
+  mat-dialog-container {
+    display: flex !important;
+    justify-content: flex-start !important;
+    flex-direction: column !important;
+    width: 100vh !important;
+    min-height: 90vh !important;
+  }
+}

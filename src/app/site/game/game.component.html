@@ -27,6 +27,7 @@
       </div>
 
       <div *ngIf="gameService.getGameType() === 'Difficile'" class="mt-4 row flex-center">
+        <h5 class="text-center-perso mt-2">Cliquez sur le compteur pour mettre le jeu en pause.</h5>
         <div class="block-timer flex-center flex-wrap" (click)="pauseGame()">
           <span>
             {{gameService.timerMinut}} : {{gameService.timerSecond}}
@@ -35,13 +36,14 @@
         </div>
 
       </div>
-
+      <!-- <h4 class="text-color-warn text-center">{{errorText}}</h4> -->
       <div class="mt-4" cdkDropListGroup>
         <div id="block-combi-to-play" class="flex-center row" cdkDropList cdkDropListOrientation="horizontal"
           [cdkDropListData]="gameService.combiToPlayList" (cdkDropListDropped)="drop($event)">
           <span *ngFor="let item of gameService.combiToPlayList" cdkDrag
             class="circle mat-elevation-z2 {{item.classColorBg}}"></span>
         </div>
+
         <!--cdkDropListOrientation="horizontal"-->
         <div id="block-colors-to-pick" class="flex-center mt-4 row" cdkDropList
           [cdkDropListData]="gameService.colorList" (cdkDropListDropped)="drop($event)">

@@ -19,12 +19,6 @@ h4 {
   font-size: 0.8rem;
 }
 
-::ng-deep .dialog, .dialog {
-  display: flex !important;
-  justify-content:flex-start !important;
-  flex-direction: column !important;
-}
-
 .button-gen {
   width: 160px;
   height: 60px;

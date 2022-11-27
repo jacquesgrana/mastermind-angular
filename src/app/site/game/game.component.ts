@@ -1,6 +1,7 @@
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Library } from 'src/app/libraries/library';
 import { Color } from 'src/app/model/color';
@@ -21,13 +22,16 @@ import { StatisticsComponent } from './statistics/statistics.component';
 })
 export class GameComponent implements OnInit {
 
+  public errorText: string = '';
+
   constructor(
     public gameService: GameService,
     private statsService: StatisticsService,
     private combisService: CombisService,
     public dialogStats: MatDialog,
     public dialogPause: MatDialog,
-    private router: Router
+    private router: Router,
+    private snackBar: MatSnackBar
   ) {
     this.statsService.generateAllCombiList();
    }
@@ -37,10 +41,7 @@ export class GameComponent implements OnInit {
   }
 
   launchGame(): void {
-    //const temp: GameTypeEnum = this.gameService.gameType;
     this.gameService.clearMatchValues();
-    //this.gameService.gameType = temp;
-    // TODO améliorer
     this.gameService.isGameLaunched = true;
     this.gameService.combiToFind = { colors: [] };
     this.gameService.generateCombiToFind();
@@ -54,13 +55,11 @@ export class GameComponent implements OnInit {
 
   pauseGame(): void {
     this.gameService.pauseTimer();
-    // selon le booleen this.gameService.gamePaused
-    // true : ouvre la modal pause
     if(this.gameService.gamePaused) {
       console.log('ouverture modale pause');
       const dialogRefPause = this.dialogPause.open(PauseComponent, {
         disableClose: true,
-        panelClass: ['dialog']
+        panelClass: ['dialog-pause']
       });
     }
   }
@@ -137,7 +136,8 @@ export class GameComponent implements OnInit {
   }
 
   drop(event: CdkDragDrop<Color[]>) {
-
+    //document.getElementById('block-combi-to-play')?.classList.remove('block-warn');
+    //this.errorText = '';
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     }
@@ -150,6 +150,10 @@ export class GameComponent implements OnInit {
           //let colorToRemove = this.gameService.combiToPlayList.splice(event.currentIndex, 1)[0];
           //this.gameService.colorList.push(colorToRemove);
           //this.transferDataArray(event);
+
+          this.openSnackBar('Enlevez une couleur avant d\'en ajouter une !', 'Fermer', 1000);
+          //this.errorText = 'Enlevez une couleur avant d\'en ajouter une nouvelle !';
+          //document.getElementById('block-combi-to-play')?.classList.add('block-warn');
         }
 
       }
@@ -173,7 +177,7 @@ export class GameComponent implements OnInit {
     console.log('ouverture des stats');
     const dialogRefStats = this.dialogStats.open(StatisticsComponent, {
       disableClose: true,
-      panelClass: ['dialog']
+      panelClass: ['dialog-stats']
     });
   }
 
@@ -181,6 +185,21 @@ export class GameComponent implements OnInit {
     this.gameService.clearMatchValues(); // TODO garder?
     this.router.navigate(['start']);
   }
+
+  openSnackBar(message: string, action: string, duration: number) {
+    this.snackBar.open(
+      message,
+      action,
+      {
+        duration: duration,
+        verticalPosition: 'top',
+        horizontalPosition: 'center',
+        panelClass: ['snackbar']
+      }
+
+    );
+  }
+
 /*
   stopTimer() {
     //this.timerService.getObservable().unsubscribe();
