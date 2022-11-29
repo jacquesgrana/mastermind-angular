@@ -29,12 +29,16 @@ export class EndComponent implements OnInit {
   generateTimeComment(): string {
     let textToReturn = '';
     if(this.gameService.isGameWin) {
-      textToReturn = 'Temps restant : ' + this.gameService.timeLeft + ' sec.';
+      if (this.gameService.timeLeftMinute > 0) {
+        textToReturn = 'Temps restant : ' + this.gameService.timeLeftMinute + ' min. ' + this.gameService.timeLeftSecond + ' sec.';
+      }
+      else {
+        textToReturn = 'Temps restant : ' + this.gameService.timeLeftSecond + ' sec.';
+      }
     }
     else {
       textToReturn = 'Temps dépassé !';
     }
-
     return textToReturn;
   }
 }
