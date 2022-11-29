@@ -135,13 +135,12 @@ export class GameService {
   }
 
   updateTimer(value: number): void {
-    // TODO mettre dans environment *******************************************************************
 
     this.timeLeft = this.maxMatchTime - value;
     this.timeLeftMinute = Math.floor(this.timeLeft/60);
     this.timeLeftSecond = this.timeLeft%60;
     //console.log('timer value :', value);
-    console.log('timeLeft :', this.timeLeft);
+    //console.log('timeLeft :', this.timeLeft);
     //console.log('timeLeftMinute :', this.timeLeftMinute);
     //console.log('timeLeftSecond :', this.timeLeftSecond);
 
