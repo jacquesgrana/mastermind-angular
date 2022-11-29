@@ -29,11 +29,23 @@ export class EndComponent implements OnInit {
   generateTimeComment(): string {
     let textToReturn = '';
     if(this.gameService.isGameWin) {
+      let elapsedTime = this.gameService.maxMatchTime - this.gameService.timeLeft;
+      let elapsedTimeMinute = Math.floor(elapsedTime / 60);
+      let elapsedTimeSecond = elapsedTime % 60;
+
       if (this.gameService.timeLeftMinute > 0) {
+
         textToReturn = 'Temps restant : ' + this.gameService.timeLeftMinute + ' min. ' + this.gameService.timeLeftSecond + ' sec.';
       }
       else {
         textToReturn = 'Temps restant : ' + this.gameService.timeLeftSecond + ' sec.';
+      }
+
+      if(elapsedTimeMinute > 0) {
+        textToReturn += ' / Temps écoulé : ' + elapsedTimeMinute + ' min. ' + elapsedTimeSecond + ' sec.';
+      }
+      else {
+        textToReturn += ' / Temps écoulé : ' + elapsedTimeSecond + 'sec.';
       }
     }
     else {
