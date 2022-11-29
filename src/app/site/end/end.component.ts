@@ -45,7 +45,7 @@ export class EndComponent implements OnInit {
         textToReturn += ' / Temps écoulé : ' + elapsedTimeMinute + ' min. ' + elapsedTimeSecond + ' sec.';
       }
       else {
-        textToReturn += ' / Temps écoulé : ' + elapsedTimeSecond + 'sec.';
+        textToReturn += ' / Temps écoulé : ' + elapsedTimeSecond + ' sec.';
       }
     }
     else {
