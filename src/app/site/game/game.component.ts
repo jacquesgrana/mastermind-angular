@@ -99,6 +99,7 @@ export class GameComponent implements OnInit {
       if(this.gameService.gameType === GameTypeEnum.HARD) {
         this.gameService.stopTimer();
       }
+      this.gameService.isGameLaunched = false; // marche pas?
       this.router.navigate(['end']);
     }
     this.gameService.updateIsCombiPlayable();

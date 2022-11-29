@@ -16,8 +16,12 @@
         class="mat-elevation-z2 text-center-perso text-in-block color-red text-color-white">Partie perdue</h3>
     </div>
 
+    <div *ngIf="gameService.getGameType() === 'Difficile'" class="mt-4 row">
+      <h4 class="text-center-perso">{{timeComment}}</h4>
+    </div>
+
     <div class="mt-2 row">
-      <h4 class="mt-5 text-center-perso">Combinaison à trouver :</h4>
+      <h4 class="mt-3 text-center-perso">Combinaison à trouver :</h4>
     </div>
     <div class="mt-2 flex-center row">
       <div id="block-combi-to-find" class="flex-center">
@@ -27,7 +31,7 @@
     </div>
 
     <div *ngIf="gameService.match.turns.length > 0" class="mt-2 row">
-      <h4 class="mt-5 text-center-perso">Historique de la partie :</h4>
+      <h4 class="mt-3 text-center-perso">Historique de la partie :</h4>
       <div *ngFor="let turn of gameService.match.turns" class="block-turn">
         <span class="turn-number"><strong>{{turn.turnNumber}}</strong></span>
         <span class="me-2">
