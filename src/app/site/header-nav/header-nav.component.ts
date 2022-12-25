@@ -40,4 +40,8 @@ export class HeaderNavComponent {
     this.router.navigate(['start']);
   }
 
+  goToRoot() {
+    window.location.href = '../index.html';
+ }
+
 }

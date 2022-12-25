@@ -21,8 +21,7 @@ import { ErrorModule } from './site/error/error.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
-
+    AppComponent
   ],
   imports: [
     BrowserModule,
@@ -41,7 +40,7 @@ import { ErrorModule } from './site/error/error.module';
     EndModule,
     ErrorModule,
     SharedModule,
-    MaterialModule,
+    MaterialModule
   ],
   providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]
